@@ -1,0 +1,27 @@
+Name,Type,Color Group,Cost
+# Make sure to keep the element count of this file of n % 4 == 0
+# can simply delete the file in /data/csv/monopoly.csv to get a fresh new copy
+Mediterranean Avenue,Property,Brown,60
+Baltic Avenue,Property,Brown,60
+Oriental Avenue,Property,Light Blue,100
+Vermont Avenue,Property,Light Blue,100
+Connecticut Avenue,Property,Light Blue,120
+St. Charles Place,Property,Pink,140
+States Avenue,Property,Pink,140
+Virginia Avenue,Property,Pink,160
+St. James Place,Property,Orange,180
+Tennessee Avenue,Property,Orange,180
+New York Avenue,Property,Orange,200
+Kentucky Avenue,Property,Red,220
+Indiana Avenue,Property,Red,220
+Illinois Avenue,Property,Red,240
+Atlantic Avenue,Property,Yellow,260
+Ventnor Avenue,Property,Yellow,260
+Marvin Gardens,Property,Yellow,280
+Pacific Avenue,Property,Green,300
+North Carolina Avenue,Property,Green,300
+Pennsylvania Avenue,Property,Green,320
+Park Place,Property,Dark Blue,350
+Boardwalk,Property,Dark Blue,400
+Electric Company,Utility,,150
+Water Works,Utility,,150
