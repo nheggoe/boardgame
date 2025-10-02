@@ -1,17 +1,17 @@
-package dev.nheggoe.boardgame.core.model;
+package dev.nheggoe.boardgame.app.util;
 
 import static org.assertj.core.api.Assertions.*;
-import static org.mockito.Mockito.*;
 
-import dev.nheggoe.boardgame.common.event.EventBus;
-import dev.nheggoe.boardgame.common.event.type.Event;
-import dev.nheggoe.boardgame.common.event.type.UserInterfaceEvent;
-import dev.nheggoe.boardgame.common.io.csv.CSVHandler;
-import dev.nheggoe.boardgame.games.snake.model.SnakeAndLadderPlayer;
-import dev.nheggoe.boardgame.monopoly.ownable.MonopolyPlayer;
+import dev.nheggoe.boardgame.core.event.EventBus;
+import dev.nheggoe.boardgame.core.event.type.Event;
+import dev.nheggoe.boardgame.core.event.type.UserInterfaceEvent;
+import dev.nheggoe.boardgame.core.io.csv.CSVHandler;
 import java.io.IOException;
 import java.util.List;
 
+import dev.nheggoe.boardgame.core.model.Player;
+import dev.nheggoe.boardgame.monopoly.model.ownable.MonopolyPlayer;
+import dev.nheggoe.boardgame.snake.model.SnakeAndLadderPlayer;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

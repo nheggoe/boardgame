@@ -1,10 +1,10 @@
-package dev.nheggoe.boardgame.core.common.event.type;
+package dev.nheggoe.boardgame.monopoly;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 import dev.nheggoe.boardgame.core.model.Player;
-import dev.nheggoe.boardgame.monopoly.ownable.MonopolyPlayer;
-import dev.nheggoe.boardgame.monopoly.ownable.Property;
+import dev.nheggoe.boardgame.monopoly.model.ownable.MonopolyPlayer;
+import dev.nheggoe.boardgame.monopoly.model.ownable.Property;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

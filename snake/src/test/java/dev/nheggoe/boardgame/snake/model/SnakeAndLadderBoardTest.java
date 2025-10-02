@@ -3,11 +3,11 @@ package dev.nheggoe.boardgame.snake.model;
 import static org.assertj.core.api.Assertions.*;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 
-import dev.nheggoe.boardgame.games.snake.model.tile.LadderTile;
-import dev.nheggoe.boardgame.games.snake.model.tile.NormalTile;
-import dev.nheggoe.boardgame.games.snake.model.tile.SnakeAndLadderTile;
-import dev.nheggoe.boardgame.games.snake.model.tile.SnakeTile;
-import dev.nheggoe.boardgame.monopoly.board.InvalidBoardLayoutException;
+import dev.nheggoe.boardgame.core.model.InvalidBoardLayoutException;
+import dev.nheggoe.boardgame.snake.model.tile.LadderTile;
+import dev.nheggoe.boardgame.snake.model.tile.NormalTile;
+import dev.nheggoe.boardgame.snake.model.tile.SnakeAndLadderTile;
+import dev.nheggoe.boardgame.snake.model.tile.SnakeTile;
 import java.util.ArrayList;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;

@@ -2,8 +2,9 @@ package dev.nheggoe.boardgame.core.common.event;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import dev.nheggoe.boardgame.common.event.type.CoreEvent;
 import dev.nheggoe.boardgame.core.event.EventBus;
+import dev.nheggoe.boardgame.core.event.EventListener;
+import dev.nheggoe.boardgame.core.event.type.CoreEvent;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
