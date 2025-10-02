@@ -3,6 +3,9 @@ package dev.nheggoe.boardgame.monopoly.ownable;
 import static org.assertj.core.api.AssertionsForClassTypes.*;
 
 import dev.nheggoe.boardgame.core.model.Player;
+import dev.nheggoe.boardgame.monopoly.model.ownable.InsufficientFundsException;
+import dev.nheggoe.boardgame.monopoly.model.ownable.MonopolyPlayer;
+import dev.nheggoe.boardgame.monopoly.model.ownable.Property;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

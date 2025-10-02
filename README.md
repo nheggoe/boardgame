@@ -1,4 +1,5 @@
 # Portfolio project IDATG2003
+
 ### Authors:
 
 [@nheggoe](https://github.com/nheggoe)
@@ -170,9 +171,11 @@ profiles.
 To modify the Snake and Ladder board, you may add or remove lines in `snakeAndLadder.csv`. Highest tested was 10,000; it
 remained functional but rendered poorly and overlapped other UI elements.
 
-To modify the Monopoly board, you may add or remove lines in `monopoly.csv`. Ensure the total number of lines is a multiple of 4 to maintain a square layout.
+To modify the Monopoly board, you may add or remove lines in `monopoly.csv`. Ensure the total number of lines is a
+multiple of 4 to maintain a square layout.
 
-If anything goes wrong, simply delete the corresponding CSV file in the `/data/csv/` folder — a default version will be automatically regenerated on the next launch.
+If anything goes wrong, simply delete the corresponding CSV file in the `/data/csv/` folder — a default version will be
+automatically regenerated on the next launch.
 
 Ensure that the file structure and formatting are preserved when editing these files to avoid runtime errors.
 

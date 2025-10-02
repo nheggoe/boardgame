@@ -4,6 +4,8 @@ import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 import dev.nheggoe.boardgame.core.model.Player;
+import dev.nheggoe.boardgame.monopoly.model.tile.CornerMonopolyTile;
+import dev.nheggoe.boardgame.monopoly.model.tile.JailMonopolyTile;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;

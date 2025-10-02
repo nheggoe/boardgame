@@ -3,6 +3,8 @@ package dev.nheggoe.boardgame.core.common.io;
 import static org.assertj.core.api.Assertions.*;
 
 import java.nio.file.Path;
+
+import dev.nheggoe.boardgame.core.io.FileUtil;
 import org.junit.jupiter.api.Test;
 
 class FileUtilTest {

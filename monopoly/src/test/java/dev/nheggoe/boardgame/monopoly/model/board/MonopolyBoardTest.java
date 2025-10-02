@@ -2,6 +2,7 @@ package dev.nheggoe.boardgame.monopoly.board;
 
 import static org.assertj.core.api.Assertions.*;
 
+import dev.nheggoe.boardgame.monopoly.model.board.MonopolyBoard;
 import dev.nheggoe.boardgame.monopoly.ownable.Property;
 import dev.nheggoe.boardgame.monopoly.tile.CornerMonopolyTile;
 import dev.nheggoe.boardgame.monopoly.tile.FreeParkingMonopolyTile;

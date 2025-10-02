@@ -4,8 +4,8 @@ import dev.nheggoe.boardgame.app.MonopolyGame;
 import dev.nheggoe.boardgame.core.event.EventBus;
 import dev.nheggoe.boardgame.monopoly.model.board.MonopolyBoard;
 import dev.nheggoe.boardgame.monopoly.model.board.MonopolyBoardFactory;
-import dev.nheggoe.boardgame.snake.model.SnakeAndLadderBoardFactory;
 import dev.nheggoe.boardgame.snake.SnakeAndLadderGame;
+import dev.nheggoe.boardgame.snake.model.SnakeAndLadderBoardFactory;
 import java.io.IOException;
 
 /**

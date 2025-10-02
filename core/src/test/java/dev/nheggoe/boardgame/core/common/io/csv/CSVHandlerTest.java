@@ -2,11 +2,10 @@ package dev.nheggoe.boardgame.core.common.io.csv;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import dev.nheggoe.boardgame.core.io.csv.CSVHandler;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-
-import dev.nheggoe.boardgame.core.io.csv.CSVHandler;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;

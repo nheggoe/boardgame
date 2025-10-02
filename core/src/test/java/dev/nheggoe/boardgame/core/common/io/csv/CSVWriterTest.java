@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.stream.Stream;
+
+import dev.nheggoe.boardgame.core.io.csv.CSVWriter;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.extension.ExtendWith;

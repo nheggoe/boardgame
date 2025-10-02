@@ -12,10 +12,9 @@ import dev.nheggoe.boardgame.games.snake.model.tile.LadderTile;
 import dev.nheggoe.boardgame.games.snake.model.tile.NormalTile;
 import dev.nheggoe.boardgame.games.snake.model.tile.SnakeAndLadderTile;
 import dev.nheggoe.boardgame.games.snake.model.tile.SnakeTile;
+import dev.nheggoe.boardgame.snake.SnakeAndLadderGame;
 import java.util.ArrayList;
 import java.util.List;
-
-import dev.nheggoe.boardgame.snake.SnakeAndLadderGame;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
