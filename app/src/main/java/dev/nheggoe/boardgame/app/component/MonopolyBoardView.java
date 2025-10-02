@@ -1,5 +1,6 @@
 package dev.nheggoe.boardgame.app.component;
 
+import dev.nheggoe.boardgame.app.ui.AlertFactory;
 import dev.nheggoe.boardgame.app.ui.EventListeningComponent;
 import dev.nheggoe.boardgame.core.event.EventBus;
 import dev.nheggoe.boardgame.core.event.UnhandledEventException;
@@ -23,6 +24,8 @@ import java.util.List;
 import java.util.function.Supplier;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
@@ -92,12 +95,41 @@ public class MonopolyBoardView extends EventListeningComponent {
   @Override
   public void onEvent(Event event) {
     switch (event) {
+      case CoreEvent coreEvent -> onCoreEvent(coreEvent);
+      case MonopolyEvent monopolyEvent -> onMonopolyEvent(monopolyEvent);
+      default ->
+          throw new IllegalArgumentException("Unexpected event: %s".formatted(event.getClass()));
+    }
+  }
+
+  public void onMonopolyEvent(MonopolyEvent monopolyEvent) {
+    switch (monopolyEvent) {
+      case MonopolyEvent.PlayerSentToJail(MonopolyPlayer player) -> {
+        AlertFactory.createAlert(
+                Alert.AlertType.INFORMATION,
+                "Player has rolled doubles 3 times in a row. They are forced to go to jail.")
+            .showAndWait();
+        playerMoved(player, player.getPosition());
+      }
+      case MonopolyEvent.RolledDouble(MonopolyPlayer player) ->
+          AlertFactory.createAlert(
+                  Alert.AlertType.INFORMATION,
+                  "Player %s rolled a double! They need to move again.".formatted(player.getName()))
+              .showAndWait();
+      case MonopolyEvent.UpgradePurchased _, MonopolyEvent.Purchased _ -> updateAllProperties();
+    }
+  }
+
+  public void onCoreEvent(CoreEvent coreEvent) {
+    switch (coreEvent) {
       case CoreEvent.PlayerMoved(Player player) -> playerMoved(player, player.getPosition());
-      case MonopolyEvent.PlayerSentToJail(MonopolyPlayer player) ->
-          playerMoved(player, player.getPosition());
-      case MonopolyEvent.Purchased ignored -> updateAllProperties();
-      case MonopolyEvent.UpgradePurchased ignored -> updateAllProperties();
-      default -> throw new UnhandledEventException(event);
+      case CoreEvent.GameEnded(Player winner) ->
+          AlertFactory.createAlert(
+                  Alert.AlertType.INFORMATION,
+                  "%s has won the game with net worth of %d!"
+                      .formatted(winner.getName(), ((MonopolyPlayer) winner).getNetWorth()))
+              .showAndWait();
+      default -> throw new UnhandledEventException(coreEvent);
     }
   }
 
@@ -186,7 +218,7 @@ public class MonopolyBoardView extends EventListeningComponent {
   /** Removes light ring effects from all tiles on the board. */
   private void removeAllLightRings() {
     // Iterate through all tiles and reset borders
-    for (javafx.scene.Node node : board.getChildren()) {
+    for (Node node : board.getChildren()) {
       if (node instanceof StackPane tilePane) {
         if ("current-tile".equals(tilePane.getId())) {
           // Reset to default border and style
@@ -255,7 +287,7 @@ public class MonopolyBoardView extends EventListeningComponent {
    */
   private void clearPlayerFigures(Player player) {
     // Iterate through all tiles on the board
-    for (javafx.scene.Node node : board.getChildren()) {
+    for (Node node : board.getChildren()) {
       if (node instanceof StackPane tilePane) {
         // Remove any player figure matching this player
         tilePane
@@ -277,7 +309,7 @@ public class MonopolyBoardView extends EventListeningComponent {
    * @return the StackPane at the specified position, or null if not found
    */
   private StackPane getTileAtPosition(int row, int col) {
-    for (javafx.scene.Node node : board.getChildren()) {
+    for (Node node : board.getChildren()) {
       if (node instanceof StackPane
           && GridPane.getRowIndex(node) == row
           && GridPane.getColumnIndex(node) == col) {
@@ -656,7 +688,7 @@ public class MonopolyBoardView extends EventListeningComponent {
    * purchase events or when the board is refreshed.
    */
   private void updateAllProperties() {
-    for (javafx.scene.Node node : board.getChildren()) {
+    for (Node node : board.getChildren()) {
       if (node instanceof StackPane tilePane && tilePane.getUserData() != null) {
         if (tilePane.getUserData() instanceof Property property) {
           updatePropertyOwnership(tilePane, property);

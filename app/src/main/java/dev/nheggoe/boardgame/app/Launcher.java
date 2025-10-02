@@ -4,9 +4,13 @@ import dev.nheggoe.boardgame.app.ui.AlertFactory;
 import dev.nheggoe.boardgame.app.ui.SceneSwitcher;
 import java.io.IOException;
 import java.io.UncheckedIOException;
+import java.util.function.Predicate;
 import javafx.application.Application;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonBar;
+import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 /**
  * The {@link Launcher} class is the entry point of the program.
@@ -34,19 +38,15 @@ public class Launcher extends Application {
     primaryStage.setTitle("Board Game");
     primaryStage.setMinWidth(1200);
     primaryStage.setMinHeight(940);
-    primaryStage.setOnCloseRequest(
-        closeEvent -> {
-          if (!isExitConfirmed()) {
-            closeEvent.consume();
-          }
-        });
+    primaryStage.setOnCloseRequest(Launcher::onClose);
   }
 
-  private static boolean isExitConfirmed() {
-    var result =
-        AlertFactory.createAlert(
-                Alert.AlertType.CONFIRMATION, "Are you sure you want to exit the game?")
-            .showAndWait();
-    return result.isPresent() && result.get().getButtonData().isDefaultButton();
+  private static void onClose(WindowEvent event) {
+    AlertFactory.createAlert(
+            Alert.AlertType.CONFIRMATION, "Are you sure you want to exit the game?")
+        .showAndWait()
+        .map(ButtonType::getButtonData)
+        .filter(Predicate.not(ButtonBar.ButtonData::isDefaultButton))
+        .ifPresent(_ -> event.consume());
   }
 }

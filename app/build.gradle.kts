@@ -6,7 +6,7 @@ plugins {
 
 javafx {
     version = javafxVersion
-    modules = listOf("javafx.controls")
+    modules = listOf("javafx.controls", "javafx.graphics")
 }
 
 application {

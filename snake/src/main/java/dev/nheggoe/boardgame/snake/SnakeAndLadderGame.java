@@ -1,10 +1,12 @@
-package dev.nheggoe.boardgame.snake.model;
+package dev.nheggoe.boardgame.snake;
 
 import dev.nheggoe.boardgame.core.event.EventBus;
 import dev.nheggoe.boardgame.core.model.Board;
 import dev.nheggoe.boardgame.core.model.Game;
 import dev.nheggoe.boardgame.core.model.TileAction;
 import dev.nheggoe.boardgame.core.model.dice.Dice;
+import dev.nheggoe.boardgame.snake.model.SnakeAndLadderBoard;
+import dev.nheggoe.boardgame.snake.model.SnakeAndLadderPlayer;
 import dev.nheggoe.boardgame.snake.model.tile.LadderTile;
 import dev.nheggoe.boardgame.snake.model.tile.NormalTile;
 import dev.nheggoe.boardgame.snake.model.tile.SnakeAndLadderTile;
@@ -80,7 +82,7 @@ public class SnakeAndLadderGame extends Game<SnakeAndLadderTile, SnakeAndLadderP
     return switch (tile) {
       case SnakeTile(int tilesToSlideBack) -> snakeTileAction(tilesToSlideBack);
       case LadderTile(int tilesToSkip) -> ladderTileAction(tilesToSkip);
-      case NormalTile ignored -> player -> {};
+      case NormalTile _ -> _ -> {};
     };
   }
 
@@ -149,7 +151,7 @@ public class SnakeAndLadderGame extends Game<SnakeAndLadderTile, SnakeAndLadderP
   public Map.Entry<Integer, List<SnakeAndLadderPlayer>> getWinners() {
     var treeMap = new TreeMap<Integer, List<SnakeAndLadderPlayer>>();
     for (var player : getPlayers()) {
-      treeMap.computeIfAbsent(player.getPosition(), unused -> new ArrayList<>()).add(player);
+      treeMap.computeIfAbsent(player.getPosition(), _ -> new ArrayList<>()).add(player);
     }
     return treeMap.reversed().firstEntry();
   }

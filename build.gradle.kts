@@ -5,6 +5,10 @@ version = "1.0.0"
 
 subprojects {
 
+    val junitVersion = "6.0.0"
+    val assertjVersion = "3.27.6"
+    val mockitoVersion = "5.20.0"
+
     repositories {
         mavenCentral()
     }
@@ -16,9 +20,12 @@ subprojects {
     }
 
     dependencies {
-        add("testImplementation", platform("org.junit:junit-bom:5.13.4"))
+        add("testImplementation", platform("org.junit:junit-bom:$junitVersion"))
         add("testImplementation", "org.junit.jupiter:junit-jupiter")
         add("testRuntimeOnly", "org.junit.platform:junit-platform-launcher")
+        add("testImplementation", "org.assertj:assertj-core:$assertjVersion")
+        add("testImplementation", "org.mockito:mockito-core:$mockitoVersion")
+        add("testImplementation", "org.mockito:mockito-junit-jupiter:$mockitoVersion")
     }
 
     tasks.withType<Test>().configureEach {

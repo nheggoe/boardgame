@@ -65,4 +65,10 @@ public sealed interface MonopolyEvent extends Event {
       requireNonNull(player, "Player cannot be null!");
     }
   }
+
+  record RolledDouble(MonopolyPlayer player) implements MonopolyEvent {
+    public RolledDouble {
+      requireNonNull(player, "Player cannot be null!");
+    }
+  }
 }

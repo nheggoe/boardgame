@@ -60,5 +60,10 @@ public sealed interface UserInterfaceEvent extends Event {
     }
   }
 
-  record Alert() implements UserInterfaceEvent {}
+  record Alert(String message, Consumer<Boolean> callback) implements UserInterfaceEvent {
+    public Alert {
+      requireNonNull(message);
+      requireNonNull(callback);
+    }
+  }
 }

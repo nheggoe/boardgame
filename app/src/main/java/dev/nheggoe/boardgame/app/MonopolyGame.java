@@ -2,6 +2,7 @@ package dev.nheggoe.boardgame.app;
 
 import dev.nheggoe.boardgame.app.ui.AlertFactory;
 import dev.nheggoe.boardgame.core.event.EventBus;
+import dev.nheggoe.boardgame.core.event.type.CoreEvent;
 import dev.nheggoe.boardgame.core.event.type.UserInterfaceEvent;
 import dev.nheggoe.boardgame.core.model.Game;
 import dev.nheggoe.boardgame.core.model.TileAction;
@@ -31,7 +32,6 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.TreeMap;
-import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 
@@ -84,18 +84,12 @@ public class MonopolyGame extends Game<MonopolyTile, MonopolyPlayer> {
 
     while (diceRoll.areDiceEqual()) {
       if (doubleCount >= 3) {
-        AlertFactory.createAlert(
-                Alert.AlertType.INFORMATION,
-                "Player has rolled doubles 3 times in a row. They are forced to go to jail.")
-            .showAndWait();
         sendPlayerToJail(player);
+        getEventBus().publishEvent(new MonopolyEvent.PlayerSentToJail(player));
         break;
       }
-      AlertFactory.createAlert(
-              Alert.AlertType.INFORMATION,
-              "Player %s rolled a double! They need to move again.".formatted(player.getName()))
-          .showAndWait();
       diceRoll = playTurn(player);
+      getEventBus().publishEvent(new MonopolyEvent.RolledDouble(player));
       doubleCount++;
     }
   }
@@ -114,7 +108,7 @@ public class MonopolyGame extends Game<MonopolyTile, MonopolyPlayer> {
     var action = tileActionOf(getTile(player.getPosition()));
     try {
       action.execute(player);
-    } catch (InsufficientFundsException e) {
+    } catch (InsufficientFundsException _) {
       removePlayer(player);
     }
     return diceRoll;
@@ -128,14 +122,8 @@ public class MonopolyGame extends Game<MonopolyTile, MonopolyPlayer> {
     if (getPlayers().size() == 1) {
       MonopolyPlayer winner = getPlayers().getFirst();
       println("%s has won the game!".formatted(winner.getName()));
-
-      Platform.runLater(
-          () -> {
-            AlertFactory.createAlert(
-                    Alert.AlertType.INFORMATION, "%s has won the game!".formatted(winner.getName()))
-                .showAndWait();
-            endGame();
-          });
+      getEventBus().publishEvent(new CoreEvent.GameEnded<>(winner));
+      endGame();
     }
   }
 
@@ -148,7 +136,7 @@ public class MonopolyGame extends Game<MonopolyTile, MonopolyPlayer> {
   public Map.Entry<Integer, List<MonopolyPlayer>> getWinners() {
     var treeMap = new TreeMap<Integer, List<MonopolyPlayer>>();
     for (var player : getPlayers()) {
-      treeMap.computeIfAbsent(player.getNetWorth(), unused -> new ArrayList<>()).add(player);
+      treeMap.computeIfAbsent(player.getNetWorth(), _ -> new ArrayList<>()).add(player);
     }
     return treeMap.reversed().firstEntry();
   }
@@ -176,10 +164,10 @@ public class MonopolyGame extends Game<MonopolyTile, MonopolyPlayer> {
     return switch (tile) {
       case OwnableMonopolyTile(Ownable ownable) -> ownableAction(ownable);
       case TaxMonopolyTile(int percentage) -> payTaxAction(percentage);
-      case GoToJailMonopolyTile unused -> goToJailAction();
-      case FreeParkingMonopolyTile unused -> freeParkingAction();
-      case JailMonopolyTile unused -> visitJailAction();
-      case StartMonopolyTile unused -> startTileAction();
+      case GoToJailMonopolyTile _ -> goToJailAction();
+      case FreeParkingMonopolyTile _ -> freeParkingAction();
+      case JailMonopolyTile _ -> visitJailAction();
+      case StartMonopolyTile _ -> startTileAction();
     };
   }
 
@@ -192,11 +180,11 @@ public class MonopolyGame extends Game<MonopolyTile, MonopolyPlayer> {
   }
 
   private TileAction<MonopolyPlayer> visitJailAction() {
-    return player -> println("Visiting Jail");
+    return _ -> println("Visiting Jail");
   }
 
   private TileAction<MonopolyPlayer> freeParkingAction() {
-    return player -> println("Free parking");
+    return _ -> println("Free parking");
   }
 
   private TileAction<MonopolyPlayer> ownableAction(Ownable ownable) {
@@ -264,7 +252,7 @@ public class MonopolyGame extends Game<MonopolyTile, MonopolyPlayer> {
     try {
       player.pay(rent);
       owner.addBalance(rent);
-    } catch (InsufficientFundsException e) {
+    } catch (InsufficientFundsException _) {
       println(
           "%s couldn't afford $%d in rent to %s."
               .formatted(player.getName(), rent, owner.getName()));
@@ -331,7 +319,7 @@ public class MonopolyGame extends Game<MonopolyTile, MonopolyPlayer> {
     try {
       player.purchase(ownable);
       return true;
-    } catch (InsufficientFundsException e) {
+    } catch (InsufficientFundsException _) {
       return false;
     }
   }

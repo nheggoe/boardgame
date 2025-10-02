@@ -55,4 +55,10 @@ public sealed interface CoreEvent extends Event {
       requireNonNull(player, "Player cannot be null!");
     }
   }
+
+  record GameEnded<P extends Player>(P winner) implements CoreEvent {
+    public GameEnded {
+      requireNonNull(winner, "Winner of the game cannot be null!");
+    }
+  }
 }

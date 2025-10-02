@@ -58,7 +58,7 @@ public class MonopolyGameController extends Controller {
 
   private static EventHandler<ActionEvent> nextTurnEventHandler(
       SceneSwitcher sceneSwitcher, GameEngine<MonopolyTile, MonopolyPlayer> gameEngine) {
-    return unused -> {
+    return _ -> {
       gameEngine.nextTurn();
       if (gameEngine.isEnded()) {
         new EndDialog(sceneSwitcher).showAndWait();

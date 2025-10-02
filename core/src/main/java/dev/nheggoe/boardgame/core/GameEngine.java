@@ -44,10 +44,9 @@ public record GameEngine<T extends Tile, P extends Player>(Game<T, P> game) {
   /// to invoke the `nextTurn()` method of the associated game instance, transitioning the game
   /// to the next turn and updating the relevant state or mechanics.
   public void nextTurn() {
-    if (game.isEnded()) {
-      return;
+    if (!game.isEnded()) {
+      game.nextTurn();
     }
-    game.nextTurn();
   }
 
   public boolean isEnded() {
