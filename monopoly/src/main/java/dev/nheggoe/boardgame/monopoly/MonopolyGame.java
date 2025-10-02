@@ -1,6 +1,5 @@
-package dev.nheggoe.boardgame.app;
+package dev.nheggoe.boardgame.monopoly;
 
-import dev.nheggoe.boardgame.app.ui.AlertFactory;
 import dev.nheggoe.boardgame.core.event.EventBus;
 import dev.nheggoe.boardgame.core.event.type.CoreEvent;
 import dev.nheggoe.boardgame.core.event.type.UserInterfaceEvent;
@@ -9,7 +8,6 @@ import dev.nheggoe.boardgame.core.model.TileAction;
 import dev.nheggoe.boardgame.core.model.dice.Dice;
 import dev.nheggoe.boardgame.core.model.dice.DiceRoll;
 import dev.nheggoe.boardgame.core.util.StringFormatter;
-import dev.nheggoe.boardgame.monopoly.MonopolyEvent;
 import dev.nheggoe.boardgame.monopoly.model.board.MonopolyBoard;
 import dev.nheggoe.boardgame.monopoly.model.ownable.InsufficientFundsException;
 import dev.nheggoe.boardgame.monopoly.model.ownable.MonopolyPlayer;
@@ -32,8 +30,6 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.TreeMap;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
 
 /**
  * Represents a Monopoly game. It is an extension of the generic {@code Game} class tailored to
@@ -220,17 +216,7 @@ public class MonopolyGame extends Game<MonopolyTile, MonopolyPlayer> {
     sb.append(player.getName()).append(" landed on unowned ").append(ownable).append(".");
     println(sb);
 
-    var output =
-        switch (processTransaction(player, ownable)) {
-          case TRANSACTION_COMPLETED -> {
-            getEventBus().publishEvent(new MonopolyEvent.Purchased(player, ownable));
-            yield player.getName() + " purchased " + ownable + "!";
-          }
-          case DENY -> player.getName() + " declined to purchase " + ownable + ".";
-          case INEFFICIENT_FUNDS ->
-              player.getName() + " doesn't have enough money to purchase " + ownable + ".";
-        };
-    println(output);
+    processTransaction(player, ownable);
   }
 
   private void handleRent(MonopolyPlayer owner, MonopolyPlayer player, Ownable ownable) {
@@ -280,9 +266,10 @@ public class MonopolyGame extends Game<MonopolyTile, MonopolyPlayer> {
                 "%s sent to jail for 2 rounds".formatted(player.getName())));
   }
 
-  private PurchaseOption processTransaction(MonopolyPlayer player, Ownable ownable) {
+  private void processTransaction(MonopolyPlayer player, Ownable ownable) {
     if (!player.hasSufficientFunds(ownable.price())) {
-      return PurchaseOption.INEFFICIENT_FUNDS;
+      println(player.getName() + " doesn't have enough money to purchase " + ownable + ".");
+      return;
     }
 
     String prompt =
@@ -298,14 +285,26 @@ public class MonopolyGame extends Game<MonopolyTile, MonopolyPlayer> {
               "Do you want to purchase %s for $%d?".formatted(name, price);
         };
 
-    var result = AlertFactory.createAlert(Alert.AlertType.CONFIRMATION, prompt).showAndWait();
-
-    if (result.isEmpty() || result.get() == ButtonType.CANCEL) {
-      return PurchaseOption.DENY;
-    }
-    return processPurchase(player, ownable)
-        ? PurchaseOption.TRANSACTION_COMPLETED
-        : PurchaseOption.INEFFICIENT_FUNDS;
+    getEventBus()
+        .publishEvent(
+            new UserInterfaceEvent.Alert(
+                prompt,
+                confirmed -> {
+                  if (confirmed) {
+                    if (processPurchase(player, ownable)) {
+                      getEventBus().publishEvent(new MonopolyEvent.Purchased(player, ownable));
+                      println(player.getName() + " purchased " + ownable + "!");
+                    } else {
+                      println(
+                          player.getName()
+                              + " doesn't have enough money to purchase "
+                              + ownable
+                              + ".");
+                    }
+                  } else {
+                    println(player.getName() + " declined to purchase " + ownable + ".");
+                  }
+                }));
   }
 
   /**
@@ -355,22 +354,27 @@ public class MonopolyGame extends Game<MonopolyTile, MonopolyPlayer> {
     println(
         "%s has %d houses on %s."
             .formatted(player.getName(), property.countHouses(), property.getName()));
-    var alert =
-        AlertFactory.createAlert(
-            Alert.AlertType.CONFIRMATION,
-            "Would you like to build a house on %s for $50?".formatted(property.getName()));
-    var result = alert.showAndWait();
 
-    if (result.isPresent() && result.get() == ButtonType.OK) {
-      int houseCost = 50;
-      if (player.hasSufficientFunds(houseCost)) {
-        player.pay(houseCost);
-        property.addUpgrade(new Upgrade(UpgradeType.HOUSE, 20));
-        println("%s built a house on %s!".formatted(player.getName(), property.getName()));
-      } else {
-        println("%s don't have enough money to build a house.".formatted(player.getName()));
-      }
-    }
+    getEventBus()
+        .publishEvent(
+            new UserInterfaceEvent.Alert(
+                "Would you like to build a house on %s for $50?".formatted(property.getName()),
+                confirmed -> {
+                  if (confirmed) {
+                    int houseCost = 50;
+                    if (player.hasSufficientFunds(houseCost)) {
+                      player.pay(houseCost);
+                      property.addUpgrade(new Upgrade(UpgradeType.HOUSE, 20));
+                      println(
+                          "%s built a house on %s!"
+                              .formatted(player.getName(), property.getName()));
+                    } else {
+                      println(
+                          "%s don't have enough money to build a house."
+                              .formatted(player.getName()));
+                    }
+                  }
+                }));
   }
 
   /**
@@ -381,31 +385,31 @@ public class MonopolyGame extends Game<MonopolyTile, MonopolyPlayer> {
    */
   private void askToBuildHotel(MonopolyPlayer player, Property property) {
     println("%s has 4 houses on %s.".formatted(player.getName(), property.getName()));
-    var alert =
-        AlertFactory.createAlert(
-            Alert.AlertType.CONFIRMATION,
-            "Would you like to upgrade to a Hotel on %s for $100?".formatted(property.getName()));
-    var result = alert.showAndWait();
 
-    if (result.isPresent() && result.get() == ButtonType.OK) {
-      int hotelCost = 100;
-      if (player.hasSufficientFunds(hotelCost)) {
-        player.pay(hotelCost);
-        property.addUpgrade(new Upgrade(UpgradeType.HOTEL, 100));
-        println("%s upgraded to a Hotel on %s!".formatted(player.getName(), property.getName()));
-      } else {
-        println("%s doesn't have enough money to build a hotel.".formatted(player.getName()));
-      }
-    }
+    getEventBus()
+        .publishEvent(
+            new UserInterfaceEvent.Alert(
+                "Would you like to upgrade to a Hotel on %s for $100?"
+                    .formatted(property.getName()),
+                confirmed -> {
+                  if (confirmed) {
+                    int hotelCost = 100;
+                    if (player.hasSufficientFunds(hotelCost)) {
+                      player.pay(hotelCost);
+                      property.addUpgrade(new Upgrade(UpgradeType.HOTEL, 100));
+                      println(
+                          "%s upgraded to a Hotel on %s!"
+                              .formatted(player.getName(), property.getName()));
+                    } else {
+                      println(
+                          "%s doesn't have enough money to build a hotel."
+                              .formatted(player.getName()));
+                    }
+                  }
+                }));
   }
 
   private Optional<MonopolyPlayer> getOwner(Ownable ownable) {
     return getPlayers().stream().filter(player -> player.isOwnerOf(ownable)).findFirst();
-  }
-
-  private enum PurchaseOption {
-    TRANSACTION_COMPLETED,
-    DENY,
-    INEFFICIENT_FUNDS,
   }
 }

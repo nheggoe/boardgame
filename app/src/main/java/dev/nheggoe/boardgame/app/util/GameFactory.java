@@ -1,6 +1,6 @@
 package dev.nheggoe.boardgame.app.util;
 
-import dev.nheggoe.boardgame.app.MonopolyGame;
+import dev.nheggoe.boardgame.monopoly.MonopolyGame;
 import dev.nheggoe.boardgame.core.event.EventBus;
 import dev.nheggoe.boardgame.monopoly.model.board.MonopolyBoard;
 import dev.nheggoe.boardgame.monopoly.model.board.MonopolyBoardFactory;
