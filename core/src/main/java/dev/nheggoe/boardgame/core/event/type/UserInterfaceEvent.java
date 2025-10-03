@@ -30,36 +30,6 @@ public sealed interface UserInterfaceEvent extends Event {
     }
   }
 
-  /**
-   * Represents a request for user input in an event-driven system.
-   *
-   * <p>This record encapsulates the details required to prompt the user for input and handle their
-   * response through a callback. It serves as a concrete implementation of the {@link
-   * UserInterfaceEvent} interface, ensuring immutability and type safety when dealing with user
-   * input requests.
-   *
-   * @param <T> the type of input expected from the user
-   * @param message the message to be displayed to the user, prompting input; must not be null
-   * @param callback the callback function to handle the user's input; must not be null
-   */
-  record UserInputRequest<T>(String message, Consumer<T> callback) implements UserInterfaceEvent {
-    public UserInputRequest {
-      requireNonNull(message, "Message cannot be null!");
-      requireNonNull(callback, "Callback cannot be null!");
-    }
-
-    /**
-     * Accepts an input and processes it using the callback function.
-     *
-     * @param input the input to be processed; must not be null
-     * @throws NullPointerException if the input is null and the callback does not handle null
-     *     values
-     */
-    public void accept(T input) {
-      callback.accept(input);
-    }
-  }
-
   record Alert(String message, Consumer<Boolean> callback) implements UserInterfaceEvent {
     public Alert {
       requireNonNull(message);

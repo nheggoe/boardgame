@@ -73,10 +73,33 @@ public class MonopolyGameView extends GameView<MonopolyTile, MonopolyPlayer> {
     var backGround = new Background(new BackgroundFill(Color.BLACK, null, null));
     center.setBackground(backGround);
 
-    var monopolyBoardView = new MonopolyBoardView(eventBus, players, tiles);
-    var diceView = new DiceView(eventBus);
+    var monopolyBoardView = new MonopolyBoardView(players, tiles);
+    var diceView = new DiceView();
     addComponents(monopolyBoardView, diceView);
     center.getChildren().addAll(monopolyBoardView, diceView);
     return center;
+  }
+
+  /**
+   * Retrieves the dice view component.
+   *
+   * @return the {@link DiceView} instance
+   */
+  public DiceView getDiceView() {
+    return (DiceView)
+        getComponents().stream().filter(c -> c instanceof DiceView).findFirst().orElseThrow();
+  }
+
+  /**
+   * Retrieves the monopoly board view component.
+   *
+   * @return the {@link MonopolyBoardView} instance
+   */
+  public MonopolyBoardView getMonopolyBoardView() {
+    return (MonopolyBoardView)
+        getComponents().stream()
+            .filter(c -> c instanceof MonopolyBoardView)
+            .findFirst()
+            .orElseThrow();
   }
 }

@@ -73,8 +73,7 @@ public class SnakeGameView extends GameView<SnakeAndLadderTile, SnakeAndLadderPl
 
     var layeredBoard = new StackPane(tileGrid, animationLayer);
     layeredBoard.setAlignment(Pos.CENTER);
-    var playerRender =
-        new PlayerRender(eventBus, tileGrid, gridSize, playersSupplier, animationLayer);
+    var playerRender = new PlayerRender(tileGrid, gridSize, playersSupplier, animationLayer);
 
     addComponents(boardRender, playerRender);
 
@@ -83,5 +82,15 @@ public class SnakeGameView extends GameView<SnakeAndLadderTile, SnakeAndLadderPl
     container.getChildren().addAll(layeredBoard);
 
     return container;
+  }
+
+  /**
+   * Retrieves the player render component.
+   *
+   * @return the {@link PlayerRender} instance
+   */
+  public PlayerRender getPlayerRender() {
+    return (PlayerRender)
+        getComponents().stream().filter(c -> c instanceof PlayerRender).findFirst().orElseThrow();
   }
 }

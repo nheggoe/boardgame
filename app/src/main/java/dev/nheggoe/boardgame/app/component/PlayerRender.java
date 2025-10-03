@@ -2,11 +2,7 @@ package dev.nheggoe.boardgame.app.component;
 
 import static java.util.Objects.requireNonNull;
 
-import dev.nheggoe.boardgame.app.ui.EventListeningComponent;
-import dev.nheggoe.boardgame.core.event.EventBus;
-import dev.nheggoe.boardgame.core.event.UnhandledEventException;
-import dev.nheggoe.boardgame.core.event.type.CoreEvent;
-import dev.nheggoe.boardgame.core.event.type.Event;
+import dev.nheggoe.boardgame.app.ui.Component;
 import dev.nheggoe.boardgame.core.model.Player;
 import dev.nheggoe.boardgame.snake.model.SnakeAndLadderPlayer;
 import java.io.InputStream;
@@ -26,14 +22,13 @@ import javafx.scene.paint.Color;
 /**
  * Responsible for rendering and animating the players on the Snake and Ladder board.
  *
- * <p>Listens to PlayerMoved events and updates player visuals using the FigureAnimator. Maintains
- * the position and figure state of each player, ensuring consistent animation and synchronisation
- * with the game model.
+ * <p>Updates player visuals using the FigureAnimator. Maintains the position and figure state of
+ * each player, ensuring consistent animation and synchronisation with the game model.
  *
  * @author Mihailo Hranisavljevic
  * @version 2025.05.23
  */
-public class PlayerRender extends EventListeningComponent {
+public class PlayerRender extends Component {
 
   private final Supplier<List<SnakeAndLadderPlayer>> players;
   private final GridPane tileGrid;
@@ -50,19 +45,16 @@ public class PlayerRender extends EventListeningComponent {
   /**
    * Constructs a PlayerRender responsible for updating player visuals on the board.
    *
-   * @param eventBus global event dispatcher
    * @param tileGrid grid containing board tiles
    * @param boardDimension square root of tile count, used to calculate tile position
    * @param players supplier providing the list of players
    * @param animationLayer transparent layer used to draw animated icons
    */
   public PlayerRender(
-      EventBus eventBus,
       GridPane tileGrid,
       int boardDimension,
       Supplier<List<SnakeAndLadderPlayer>> players,
       Pane animationLayer) {
-    super(eventBus, CoreEvent.PlayerMoved.class);
     this.tileGrid = tileGrid;
     this.gridSize = boardDimension;
     this.players = requireNonNull(players);
@@ -70,18 +62,9 @@ public class PlayerRender extends EventListeningComponent {
     Platform.runLater(this::renderAll);
   }
 
-  /**
-   * Responds to PlayerMoved events by re-rendering all player icons.
-   *
-   * @param event event indicating a player has moved
-   */
-  @Override
-  public void onEvent(Event event) {
-    if (requireNonNull(event) instanceof CoreEvent.PlayerMoved) {
-      Platform.runLater(this::renderAll);
-    } else {
-      throw new UnhandledEventException(event);
-    }
+  /** Re-renders all player icons in response to player movement. */
+  public void handlePlayerMoved() {
+    Platform.runLater(this::renderAll);
   }
 
   /**

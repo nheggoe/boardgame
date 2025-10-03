@@ -1,10 +1,6 @@
 package dev.nheggoe.boardgame.app.component;
 
-import dev.nheggoe.boardgame.app.ui.EventListeningComponent;
-import dev.nheggoe.boardgame.core.event.EventBus;
-import dev.nheggoe.boardgame.core.event.UnhandledEventException;
-import dev.nheggoe.boardgame.core.event.type.Event;
-import dev.nheggoe.boardgame.core.event.type.UserInterfaceEvent;
+import dev.nheggoe.boardgame.app.ui.Component;
 import java.util.concurrent.atomic.AtomicInteger;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
@@ -38,15 +34,14 @@ import javafx.util.Duration;
  * @author Mihailo Hranisavljevic
  * @version 2025.05.16
  */
-public class MessagePanel extends EventListeningComponent {
+public class MessagePanel extends Component {
   private final Label textLabel;
 
   private final StringBuilder currentMessage;
   private Timeline typewriter;
 
   /** Constructs a new {@code MessageLog} with visuals and animation. */
-  public MessagePanel(EventBus eventBus) {
-    super(eventBus, UserInterfaceEvent.Output.class);
+  public MessagePanel() {
 
     setBackground(
         new Background(new BackgroundFill(Color.BLACK, new CornerRadii(20), new Insets(10))));
@@ -67,14 +62,6 @@ public class MessagePanel extends EventListeningComponent {
     root.getChildren().addAll(textLabel);
     StackPane.setAlignment(textLabel, Pos.TOP_LEFT);
     StackPane.setMargin(textLabel, new Insets(10));
-  }
-
-  @Override
-  public void onEvent(Event event) {
-    switch (event) {
-      case UserInterfaceEvent.Output(String output) -> animateMessage(output);
-      default -> throw new UnhandledEventException(event);
-    }
   }
 
   /**

@@ -1,13 +1,7 @@
 package dev.nheggoe.boardgame.app.component;
 
-import dev.nheggoe.boardgame.app.ui.AlertFactory;
-import dev.nheggoe.boardgame.app.ui.EventListeningComponent;
-import dev.nheggoe.boardgame.core.event.EventBus;
-import dev.nheggoe.boardgame.core.event.UnhandledEventException;
-import dev.nheggoe.boardgame.core.event.type.CoreEvent;
-import dev.nheggoe.boardgame.core.event.type.Event;
+import dev.nheggoe.boardgame.app.ui.Component;
 import dev.nheggoe.boardgame.core.model.Player;
-import dev.nheggoe.boardgame.monopoly.MonopolyEvent;
 import dev.nheggoe.boardgame.monopoly.model.ownable.MonopolyPlayer;
 import dev.nheggoe.boardgame.monopoly.model.ownable.Ownable;
 import dev.nheggoe.boardgame.monopoly.model.ownable.Property;
@@ -25,7 +19,6 @@ import java.util.function.Supplier;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
@@ -46,12 +39,12 @@ import javafx.scene.text.FontWeight;
 /**
  * A visual representation of the Monopoly game board.
  *
- * <p>The class handles rendering the board with its tiles and players, managing visual updates
- * based on game events like player movements, property ownership changes, and upgrades. It
- * leverages suppliers to dynamically retrieve the current game state for tiles and players. The
- * class also binds to the scene properties to ensure a responsive layout during gameplay.
+ * <p>The class handles rendering the board with its tiles and players, managing visual updates for
+ * player movements, property ownership changes, and upgrades. It leverages suppliers to dynamically
+ * retrieve the current game state for tiles and players. The class also binds to the scene
+ * properties to ensure a responsive layout during gameplay.
  */
-public class MonopolyBoardView extends EventListeningComponent {
+public class MonopolyBoardView extends Component {
   private final GridPane board;
 
   private final Supplier<List<MonopolyTile>> tilesSupplier;
@@ -66,71 +59,19 @@ public class MonopolyBoardView extends EventListeningComponent {
 
   /**
    * Constructs a MonopolyBoardView that serves as the visual representation of a Monopoly game
-   * board. This class initializes the board layout and listens to relevant game events to update
-   * the view.
+   * board. This class initializes the board layout.
    *
-   * @param eventBus the event bus used for subscribing to and handling game events
    * @param playersSupplier a supplier providing the list of Monopoly players in the game
    * @param tilesSupplier a supplier providing the list of tiles (spaces) on the Monopoly board
    */
   public MonopolyBoardView(
-      EventBus eventBus,
-      Supplier<List<MonopolyPlayer>> playersSupplier,
-      Supplier<List<MonopolyTile>> tilesSupplier) {
-    super(
-        eventBus,
-        CoreEvent.PlayerMoved.class,
-        MonopolyEvent.Purchased.class,
-        MonopolyEvent.UpgradePurchased.class,
-        MonopolyEvent.PlayerSentToJail.class);
-
+      Supplier<List<MonopolyPlayer>> playersSupplier, Supplier<List<MonopolyTile>> tilesSupplier) {
     this.playersSupplier = playersSupplier;
     this.tilesSupplier = tilesSupplier;
     board = new GridPane();
     getChildren().add(board);
     setAlignment(Pos.CENTER);
     initialize(tilesSupplier, playersSupplier);
-  }
-
-  @Override
-  public void onEvent(Event event) {
-    switch (event) {
-      case CoreEvent coreEvent -> onCoreEvent(coreEvent);
-      case MonopolyEvent monopolyEvent -> onMonopolyEvent(monopolyEvent);
-      default ->
-          throw new IllegalArgumentException("Unexpected event: %s".formatted(event.getClass()));
-    }
-  }
-
-  public void onMonopolyEvent(MonopolyEvent monopolyEvent) {
-    switch (monopolyEvent) {
-      case MonopolyEvent.PlayerSentToJail(MonopolyPlayer player) -> {
-        AlertFactory.createAlert(
-                Alert.AlertType.INFORMATION,
-                "Player has rolled doubles 3 times in a row. They are forced to go to jail.")
-            .showAndWait();
-        playerMoved(player, player.getPosition());
-      }
-      case MonopolyEvent.RolledDouble(MonopolyPlayer player) ->
-          AlertFactory.createAlert(
-                  Alert.AlertType.INFORMATION,
-                  "Player %s rolled a double! They need to move again.".formatted(player.getName()))
-              .showAndWait();
-      case MonopolyEvent.UpgradePurchased _, MonopolyEvent.Purchased _ -> updateAllProperties();
-    }
-  }
-
-  public void onCoreEvent(CoreEvent coreEvent) {
-    switch (coreEvent) {
-      case CoreEvent.PlayerMoved(Player player) -> playerMoved(player, player.getPosition());
-      case CoreEvent.GameEnded(Player winner) ->
-          AlertFactory.createAlert(
-                  Alert.AlertType.INFORMATION,
-                  "%s has won the game with net worth of %d!"
-                      .formatted(winner.getName(), ((MonopolyPlayer) winner).getNetWorth()))
-              .showAndWait();
-      default -> throw new UnhandledEventException(coreEvent);
-    }
   }
 
   /**
@@ -687,7 +628,7 @@ public class MonopolyBoardView extends EventListeningComponent {
    * Updates all properties on the board to reflect current ownership and upgrades. Called after
    * purchase events or when the board is refreshed.
    */
-  private void updateAllProperties() {
+  public void updateAllProperties() {
     for (Node node : board.getChildren()) {
       if (node instanceof StackPane tilePane && tilePane.getUserData() != null) {
         if (tilePane.getUserData() instanceof Property property) {

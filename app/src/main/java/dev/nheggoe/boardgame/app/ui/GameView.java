@@ -98,11 +98,24 @@ public abstract class GameView<T extends Tile, P extends Player> extends View {
 
     var settingButton = new SettingButton(sceneSwitcher);
     settingButton.isInGame(true);
-    var playerDashboard = new PlayerDashboard<>(eventBus, players);
+    var playerDashboard = new PlayerDashboard<>(players);
     var rollDiceButton = new RollDiceButton(rollDiceHandler);
     addComponents(settingButton, playerDashboard, rollDiceButton);
     right.getChildren().addAll(settingButton, playerDashboard, rollDiceButton);
     return right;
+  }
+
+  /**
+   * Retrieves the player dashboard component.
+   *
+   * @return the {@link PlayerDashboard} instance
+   */
+  public PlayerDashboard<P> getPlayerDashboard() {
+    return (PlayerDashboard<P>)
+        getComponents().stream()
+            .filter(c -> c instanceof PlayerDashboard)
+            .findFirst()
+            .orElseThrow();
   }
 
   /**
@@ -116,9 +129,27 @@ public abstract class GameView<T extends Tile, P extends Player> extends View {
    * @return a {@link Pane} representing the bottom section of the game view
    */
   protected Pane createBottomPane(EventBus eventBus) {
-    var messagePanel = new MessagePanel(eventBus);
+    var messagePanel = new MessagePanel();
     messagePanel.prefHeightProperty().bind(this.heightProperty().multiply(0.28));
     addComponents(messagePanel);
     return messagePanel;
+  }
+
+  /**
+   * Retrieves the message panel component from the bottom pane.
+   *
+   * @return the {@link MessagePanel} instance
+   */
+  public MessagePanel getMessagePanel() {
+    return (MessagePanel)
+        ((Pane) getRoot())
+            .getChildren().stream()
+                .filter(node -> node instanceof MessagePanel)
+                .findFirst()
+                .orElseThrow();
+  }
+
+  private Pane getRoot() {
+    return (Pane) getChildren().get(0);
   }
 }

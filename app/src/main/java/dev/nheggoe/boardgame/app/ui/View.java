@@ -43,6 +43,15 @@ public abstract class View extends Region implements AutoCloseable {
   }
 
   /**
+   * Returns the list of components managed by this view.
+   *
+   * @return an unmodifiable list of components
+   */
+  protected List<Component> getComponents() {
+    return List.copyOf(components);
+  }
+
+  /**
    * Sets the specified {@link Pane} as the root of the view. Clears all existing child nodes and
    * replaces them with the provided root pane. Also binds the preferred width and height of the
    * root pane to the respective width and height properties of this view.

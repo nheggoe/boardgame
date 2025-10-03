@@ -1,10 +1,6 @@
 package dev.nheggoe.boardgame.app.component;
 
-import dev.nheggoe.boardgame.app.ui.EventListeningComponent;
-import dev.nheggoe.boardgame.core.event.EventBus;
-import dev.nheggoe.boardgame.core.event.UnhandledEventException;
-import dev.nheggoe.boardgame.core.event.type.CoreEvent;
-import dev.nheggoe.boardgame.core.event.type.Event;
+import dev.nheggoe.boardgame.app.ui.Component;
 import dev.nheggoe.boardgame.core.model.dice.DiceRoll;
 import java.util.Random;
 import javafx.animation.KeyFrame;
@@ -34,7 +30,7 @@ import javafx.util.Duration;
  *
  * @version 2025.05.16
  */
-public class DiceView extends EventListeningComponent {
+public class DiceView extends Component {
 
   private static final String BASE_PATH = "/images/dice";
   private static final int FACE_COUNT = 6;
@@ -45,26 +41,12 @@ public class DiceView extends EventListeningComponent {
   private final Random random = new Random();
 
   /**
-   * Constructs a {@code DiceView} component that listens for {@link CoreEvent.DiceRolled} events on
-   * the specified {@link EventBus}. This component visually represents dice rolls and aligns its
+   * Constructs a {@code DiceView} component that visually represents dice rolls and aligns its
    * children to the center with specified spacing.
-   *
-   * @param eventBus the {@link EventBus} to register the {@code DiceView} as a listener for dice
-   *     roll events, must not be null
-   * @throws NullPointerException if {@code eventBus} is null
    */
-  public DiceView(EventBus eventBus) {
-    super(eventBus, CoreEvent.DiceRolled.class);
+  public DiceView() {
     setAlignment(Pos.CENTER);
     setSpacing(20);
-  }
-
-  @Override
-  public void onEvent(Event event) {
-    switch (event) {
-      case CoreEvent.DiceRolled(DiceRoll diceRoll) -> animateDiceRoll(diceRoll);
-      default -> throw new UnhandledEventException(event);
-    }
   }
 
   /**

@@ -2,13 +2,8 @@ package dev.nheggoe.boardgame.app.component;
 
 import static java.util.Objects.requireNonNull;
 
-import dev.nheggoe.boardgame.app.ui.EventListeningComponent;
-import dev.nheggoe.boardgame.core.event.EventBus;
-import dev.nheggoe.boardgame.core.event.UnhandledEventException;
-import dev.nheggoe.boardgame.core.event.type.CoreEvent;
-import dev.nheggoe.boardgame.core.event.type.Event;
+import dev.nheggoe.boardgame.app.ui.Component;
 import dev.nheggoe.boardgame.core.model.Player;
-import dev.nheggoe.boardgame.monopoly.MonopolyEvent;
 import dev.nheggoe.boardgame.monopoly.model.ownable.MonopolyPlayer;
 import java.util.HashMap;
 import java.util.List;
@@ -40,7 +35,7 @@ import javafx.scene.text.FontWeight;
  * @author Mihailo Hranisavljevic and Nick Heggø
  * @version 2025.05.19
  */
-public class PlayerDashboard<P extends Player> extends EventListeningComponent {
+public class PlayerDashboard<P extends Player> extends Component {
 
   private final HashMap<Player, PlayerInfoBox> playerRegistry = new HashMap<>();
 
@@ -54,17 +49,11 @@ public class PlayerDashboard<P extends Player> extends EventListeningComponent {
 
   /**
    * Constructs a new PlayerDashboard, which serves as the UI component displaying the players'
-   * information and is updated based on various events.
+   * information.
    *
-   * @param eventBus the event bus to listen to for player-related events, must not be null
    * @param playersSupplier the list of players to display in the dashboard, must not be null
    */
-  public PlayerDashboard(EventBus eventBus, Supplier<List<P>> playersSupplier) {
-    super(
-        eventBus,
-        CoreEvent.PlayerMoved.class,
-        CoreEvent.PlayerRemoved.class,
-        MonopolyEvent.Purchased.class);
+  public PlayerDashboard(Supplier<List<P>> playersSupplier) {
 
     setPrefWidth(320);
     setStyle(
@@ -108,17 +97,12 @@ public class PlayerDashboard<P extends Player> extends EventListeningComponent {
     VBox.setVgrow(scrollPane, Priority.ALWAYS);
   }
 
-  @Override
-  public void onEvent(Event event) {
-    switch (event) {
-      case CoreEvent.PlayerMoved(Player player) -> highlightPlayer(player);
-      case CoreEvent.PlayerRemoved(Player player) -> handlePlayerRemoval(player);
-      case MonopolyEvent.Purchased ignored -> refresh();
-      default -> throw new UnhandledEventException(event);
-    }
-  }
-
-  private void handlePlayerRemoval(Player player) {
+  /**
+   * Handles player removal by graying out their card in the dashboard.
+   *
+   * @param player the player who was removed
+   */
+  public void handlePlayerRemoval(Player player) {
     PlayerInfoBox playerBox = playerRegistry.get(player);
     if (playerBox != null) {
       playerBox.setGrayedOut(true);
@@ -131,7 +115,12 @@ public class PlayerDashboard<P extends Player> extends EventListeningComponent {
     playerRegistry.values().forEach(PlayerInfoBox::refresh);
   }
 
-  private void highlightPlayer(Player player) {
+  /**
+   * Highlights the specified player's card in the dashboard.
+   *
+   * @param player the player to highlight
+   */
+  public void highlightPlayer(Player player) {
     for (var entry : playerRegistry.entrySet()) {
       PlayerInfoBox box = entry.getValue();
       box.setGlow(entry.getKey().equals(player));
