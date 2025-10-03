@@ -37,7 +37,7 @@ public final class EventBus implements EventPublisher {
   public void addListener(Class<? extends Event> eventType, EventListener listener) {
     requireNonNull(eventType, "Event type cannot be null!");
     requireNonNull(listener, "Listener cannot be null!");
-    listeners.computeIfAbsent(eventType, k -> new ArrayList<>()).add(listener);
+    listeners.computeIfAbsent(eventType, _ -> new ArrayList<>()).add(listener);
   }
 
   @Override
