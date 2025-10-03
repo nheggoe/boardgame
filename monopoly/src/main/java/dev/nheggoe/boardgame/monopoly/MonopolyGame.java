@@ -79,13 +79,13 @@ public class MonopolyGame extends Game<MonopolyTile, MonopolyPlayer> {
     var diceRoll = playTurn(player);
 
     while (diceRoll.areDiceEqual()) {
+      getEventBus().publishEvent(new MonopolyEvent.RolledDouble(player));
       if (doubleCount >= 3) {
         sendPlayerToJail(player);
         getEventBus().publishEvent(new MonopolyEvent.PlayerSentToJail(player));
         break;
       }
       diceRoll = playTurn(player);
-      getEventBus().publishEvent(new MonopolyEvent.RolledDouble(player));
       doubleCount++;
     }
   }

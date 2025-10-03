@@ -94,7 +94,8 @@ public class MonopolyGameController extends Controller implements EventListener 
       case MonopolyEvent.PlayerSentToJail(MonopolyPlayer player) -> {
         AlertFactory.createAlert(
                 Alert.AlertType.INFORMATION,
-                "Player has rolled doubles 3 times in a row. They are forced to go to jail.")
+                "%s has rolled doubles 3 times in a row. They are forced to go to jail."
+                    .formatted(player.getName()))
             .showAndWait();
         view.getMonopolyBoardView().playerMoved(player, player.getPosition());
       }
@@ -102,7 +103,7 @@ public class MonopolyGameController extends Controller implements EventListener 
       case MonopolyEvent.RolledDouble(MonopolyPlayer player) ->
           AlertFactory.createAlert(
                   Alert.AlertType.INFORMATION,
-                  "Player %s rolled a double! They need to move again.".formatted(player.getName()))
+                  "%s rolled a double! They need to move again.".formatted(player.getName()))
               .showAndWait();
     }
   }
