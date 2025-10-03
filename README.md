@@ -16,177 +16,201 @@ modular software architecture, object-oriented programming, and user interface d
 
 ```
 boardgame
-├── Launcher.java
-├── common
-│   ├── event
-│   │   ├── EventBus.java
-│   │   ├── EventListener.java
-│   │   ├── EventPublisher.java
-│   │   ├── UnhandledEventException.java
-│   │   └── type
-│   │       ├── CoreEvent.java
-│   │       ├── Event.java
-│   │       ├── MonopolyEvent.java
-│   │       ├── SnakeAndLadderEvent.java
-│   │       └── UserInterfaceEvent.java
-│   ├── io
-│   │   ├── DAO.java
-│   │   ├── FileUtil.java
-│   │   ├── csv
-│   │   │   ├── CSVHandler.java
-│   │   │   ├── CSVReader.java
-│   │   │   └── CSVWriter.java
-│   │   └── json
-│   │       ├── CustomGson.java
-│   │       ├── JsonException.java
-│   │       ├── JsonReader.java
-│   │       ├── JsonService.java
-│   │       ├── JsonType.java
-│   │       ├── JsonWriter.java
-│   │       └── adapter
-│   │           ├── BoardAdapter.java
-│   │           ├── MonopolyTileAdapter.java
-│   │           ├── OwnableAdapter.java
-│   │           └── SnakeAndLadderTileAdapter.java
-│   ├── repository
-│   │   ├── DataRepository.java
-│   │   └── JsonRepository.java
-│   ├── ui
-│   │   ├── component
-│   │   │   ├── EndDialog.java
-│   │   │   ├── PlayerSetupController.java
-│   │   │   ├── SettingButton.java
-│   │   │   └── SettingDialog.java
-│   │   ├── controller
-│   │   │   └── MainController.java
-│   │   └── view
-│   │       ├── MainView.java
-│   │       └── PlayerSetupView.java
-│   └── util
-│       ├── AlertFactory.java
-│       ├── GameFactory.java
-│       └── StringFormatter.java
+├── app
+│   └── src
+│       └── main
+│           └── java
+│               ├── dev
+│               │   └── nheggoe
+│               │       └── boardgame
+│               │           └── app
+│               │               ├── component
+│               │               │   ├── DiceView.java
+│               │               │   ├── EndDialog.java
+│               │               │   ├── FigureAnimator.java
+│               │               │   ├── MessagePanel.java
+│               │               │   ├── MonopolyBoardView.java
+│               │               │   ├── PlayerDashboard.java
+│               │               │   ├── PlayerRender.java
+│               │               │   ├── RollDiceButton.java
+│               │               │   ├── SettingButton.java
+│               │               │   ├── SettingDialog.java
+│               │               │   ├── SnakeAndLadderBoardRender.java
+│               │               │   └── SnakeBoardLayout.java
+│               │               ├── controller
+│               │               │   ├── MainController.java
+│               │               │   ├── MonopolyGameController.java
+│               │               │   ├── PlayerSetupController.java
+│               │               │   └── SnakeGameController.java
+│               │               ├── ui
+│               │               │   ├── Component.java
+│               │               │   ├── Controller.java
+│               │               │   ├── EventListeningComponent.java
+│               │               │   ├── GameView.java
+│               │               │   └── View.java
+│               │               ├── util
+│               │               │   ├── AlertFactory.java
+│               │               │   ├── GameFactory.java
+│               │               │   └── PlayerManager.java
+│               │               ├── view
+│               │               │   ├── MainView.java
+│               │               │   ├── MonopolyGameView.java
+│               │               │   ├── PlayerSetupView.java
+│               │               │   ├── SnakeGameView.java
+│               │               │   └── SnakeSetupView.java
+│               │               ├── Launcher.java
+│               │               └── SceneSwitcher.java
+│               └── module-info.java
 ├── core
-│   ├── BoardGame.java
-│   ├── GameEngine.java
-│   ├── PlayerManager.java
-│   ├── model
-│   │   ├── Board.java
-│   │   ├── Game.java
-│   │   ├── Player.java
-│   │   ├── Tile.java
-│   │   ├── TileAction.java
-│   │   ├── TurnManager.java
-│   │   └── dice
-│   │       ├── Dice.java
-│   │       └── DiceRoll.java
-│   └── ui
-│       ├── Component.java
-│       ├── Controller.java
-│       ├── EventListeningComponent.java
-│       ├── GameView.java
-│       ├── SceneSwitcher.java
-│       └── View.java
-└── games
-    ├── monopoly
-    │   ├── component
-    │   │   ├── DiceView.java
-    │   │   ├── MessagePanel.java
-    │   │   ├── MonopolyBoardView.java
-    │   │   ├── PlayerDashboard.java
-    │   │   └── RollDiceButton.java
-    │   ├── controller
-    │   │   └── MonopolyGameController.java
-    │   ├── model
-    │   │   ├── MonopolyGame.java
-    │   │   ├── board
-    │   │   │   ├── IllegalTilePositionException.java
-    │   │   │   ├── InvalidBoardLayoutException.java
-    │   │   │   ├── MonopolyBoard.java
-    │   │   │   └── MonopolyBoardFactory.java
-    │   │   ├── ownable
-    │   │   │   ├── InsufficientFundsException.java
-    │   │   │   ├── MonopolyPlayer.java
-    │   │   │   ├── Ownable.java
-    │   │   │   ├── Property.java
-    │   │   │   ├── Railroad.java
-    │   │   │   └── Utility.java
-    │   │   ├── tile
-    │   │   │   ├── CornerMonopolyTile.java
-    │   │   │   ├── FreeParkingMonopolyTile.java
-    │   │   │   ├── GoToJailMonopolyTile.java
-    │   │   │   ├── JailMonopolyTile.java
-    │   │   │   ├── MonopolyTile.java
-    │   │   │   ├── OwnableMonopolyTile.java
-    │   │   │   ├── StartMonopolyTile.java
-    │   │   │   ├── TaxMonopolyTile.java
-    │   │   │   └── TileFactory.java
-    │   │   └── upgrade
-    │   │       ├── Upgrade.java
-    │   │       └── UpgradeType.java
-    │   ├── repository
-    │   │   └── JsonMonopolyGameRepository.java
-    │   └── view
-    │       └── MonopolyGameView.java
-    └── snake
-        ├── component
-        │   ├── FigureAnimator.java
-        │   ├── PlayerRender.java
-        │   ├── SnakeAndLadderBoardRender.java
-        │   └── SnakeBoardLayout.java
-        ├── controller
-        │   └── SnakeGameController.java
-        ├── model
-        │   ├── SnakeAndLadderBoard.java
-        │   ├── SnakeAndLadderBoardFactory.java
-        │   ├── SnakeAndLadderGame.java
-        │   ├── SnakeAndLadderPlayer.java
-        │   └── tile
-        │       ├── LadderTile.java
-        │       ├── NormalTile.java
-        │       ├── SnakeAndLadderTile.java
-        │       └── SnakeTile.java
-        ├── repository
-        │   └── JsonSALRepository.java
-        └── view
-            ├── SnakeGameView.java
-            └── SnakeSetupView.java
+│   └── src
+│       └── main
+│           └── java
+│               ├── dev
+│               │   └── nheggoe
+│               │       └── boardgame
+│               │           └── core
+│               │               ├── event
+│               │               │   ├── type
+│               │               │   │   ├── CoreEvent.java
+│               │               │   │   ├── Event.java
+│               │               │   │   └── UserInterfaceEvent.java
+│               │               │   ├── EventBus.java
+│               │               │   ├── EventListener.java
+│               │               │   ├── EventPublisher.java
+│               │               │   └── UnhandledEventException.java
+│               │               ├── io
+│               │               │   ├── csv
+│               │               │   │   ├── CSVHandler.java
+│               │               │   │   ├── CSVReader.java
+│               │               │   │   └── CSVWriter.java
+│               │               │   ├── json
+│               │               │   │   ├── adapter
+│               │               │   │   │   └── BoardAdapter.java
+│               │               │   │   ├── CustomGson.java
+│               │               │   │   ├── GsonContributor.java
+│               │               │   │   ├── JsonException.java
+│               │               │   │   ├── JsonReader.java
+│               │               │   │   ├── JsonService.java
+│               │               │   │   ├── JsonType.java
+│               │               │   │   └── JsonWriter.java
+│               │               │   ├── DAO.java
+│               │               │   └── FileUtil.java
+│               │               ├── model
+│               │               │   ├── dice
+│               │               │   │   ├── Dice.java
+│               │               │   │   └── DiceRoll.java
+│               │               │   ├── Board.java
+│               │               │   ├── Game.java
+│               │               │   ├── IllegalTilePositionException.java
+│               │               │   ├── InvalidBoardLayoutException.java
+│               │               │   ├── Player.java
+│               │               │   ├── Tile.java
+│               │               │   ├── TileAction.java
+│               │               │   └── TurnManager.java
+│               │               ├── repository
+│               │               │   ├── DataRepository.java
+│               │               │   └── JsonRepository.java
+│               │               ├── util
+│               │               │   └── StringFormatter.java
+│               │               └── GameEngine.java
+│               └── module-info.java
+├── monopoly
+│   └── src
+│       └── main
+│           └── java
+│               ├── dev
+│               │   └── nheggoe
+│               │       └── boardgame
+│               │           └── monopoly
+│               │               ├── model
+│               │               │   ├── board
+│               │               │   │   ├── MonopolyBoard.java
+│               │               │   │   └── MonopolyBoardFactory.java
+│               │               │   ├── ownable
+│               │               │   │   ├── InsufficientFundsException.java
+│               │               │   │   ├── MonopolyPlayer.java
+│               │               │   │   ├── Ownable.java
+│               │               │   │   ├── Property.java
+│               │               │   │   ├── Railroad.java
+│               │               │   │   └── Utility.java
+│               │               │   ├── tile
+│               │               │   │   ├── CornerMonopolyTile.java
+│               │               │   │   ├── FreeParkingMonopolyTile.java
+│               │               │   │   ├── GoToJailMonopolyTile.java
+│               │               │   │   ├── JailMonopolyTile.java
+│               │               │   │   ├── MonopolyTile.java
+│               │               │   │   ├── OwnableMonopolyTile.java
+│               │               │   │   ├── StartMonopolyTile.java
+│               │               │   │   ├── TaxMonopolyTile.java
+│               │               │   │   └── TileFactory.java
+│               │               │   └── upgrade
+│               │               │       ├── Upgrade.java
+│               │               │       └── UpgradeType.java
+│               │               ├── view
+│               │               ├── MonopolyBoardAdapter.java
+│               │               ├── MonopolyEvent.java
+│               │               ├── MonopolyGame.java
+│               │               ├── MonopolyGsonContributor.java
+│               │               ├── MonopolyTileAdapter.java
+│               │               └── OwnableAdapter.java
+│               └── module-info.java
+└── snake
+    └── src
+        └── main
+            └── java
+                ├── dev
+                │   └── nheggoe
+                │       └── boardgame
+                │           └── snake
+                │               ├── model
+                │               │   ├── tile
+                │               │   │   ├── LadderTile.java
+                │               │   │   ├── NormalTile.java
+                │               │   │   ├── SnakeAndLadderTile.java
+                │               │   │   └── SnakeTile.java
+                │               │   ├── SnakeAndLadderBoard.java
+                │               │   ├── SnakeAndLadderBoardFactory.java
+                │               │   └── SnakeAndLadderPlayer.java
+                │               ├── SnakeAndLadderEvent.java
+                │               ├── SnakeAndLadderGame.java
+                │               ├── SnakeAndLadderTileAdapter.java
+                │               └── SnakeGsonContributor.java
+                └── module-info.java
 
-36 directories, 100 files
+56 directories, 105 files
 ```
 
-Project source code is organised into packages:
+Project source code is organized into packages:
 
-* `core` package provides the abstract class that concreate implementation extends from.
+* `core` package provides the abstract class that concrete implementation extends from.
 * `games` package is where the individual game lives.
 
 ## Data Files
 
-The application uses external CSV files located in the `/data/csv/` directory to configure board elements and player
+The application uses external CSV files located in the `/app/data/csv/` directory to configure board elements and player
 profiles.
 
 - `player.csv` can be edited directly through the application’s built-in interface.
 - `snakeAndLadder.csv` and `monopoly.csv` must be manually edited outside the application.
 
-To modify the Snake and Ladder board, you may add or remove lines in `snakeAndLadder.csv`. Highest tested was 10,000; it
-remained functional but rendered poorly and overlapped other UI elements.
+To modify the Snake and Ladder board, you may add or remove lines in `snakeAndLadder.csv`.
 
 To modify the Monopoly board, you may add or remove lines in `monopoly.csv`. Ensure the total number of lines is a
 multiple of 4 to maintain a square layout.
 
-If anything goes wrong, simply delete the corresponding CSV file in the `/data/csv/` folder — a default version will be
+If anything goes wrong, delete the corresponding CSV file in the `/app/data/csv/` folder — a default version will be
 automatically regenerated on the next launch.
 
 Ensure that the file structure and formatting are preserved when editing these files to avoid runtime errors.
 
 ## Link to repository
 
-[GitHub Repository](https://github.com/nheggoe/board-game)
+[GitHub Repository](https://github.com/nheggoe/boardgame)
 
 ## How to run the project
 
-This project requires [Java JDK 21](https://whichjdk.com/) to be installed on the system.
-It is being developed and tested using the [Liberica Full JDK 21](https://bell-sw.com/libericajdk/).
+This project requires JDK 25 to be installed on the system.
+It is being developed and tested using the [Liberica JDK 25](https://bell-sw.com/libericajdk/).
 
 Before running any commands, check if the correct version is installed on the system by typing:
 
@@ -205,7 +229,7 @@ cd <project-root>
 2. Run the following command in the terminal to build and run the project.
 
 ```bash
-./mvnw -q
+./gradlew run
 ```
 
 ## References

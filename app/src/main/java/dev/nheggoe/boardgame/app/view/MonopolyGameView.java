@@ -3,7 +3,7 @@ package dev.nheggoe.boardgame.app.view;
 import dev.nheggoe.boardgame.app.component.DiceView;
 import dev.nheggoe.boardgame.app.component.MonopolyBoardView;
 import dev.nheggoe.boardgame.app.ui.GameView;
-import dev.nheggoe.boardgame.app.ui.SceneSwitcher;
+import dev.nheggoe.boardgame.app.SceneSwitcher;
 import dev.nheggoe.boardgame.core.event.EventBus;
 import dev.nheggoe.boardgame.monopoly.model.ownable.MonopolyPlayer;
 import dev.nheggoe.boardgame.monopoly.model.tile.MonopolyTile;

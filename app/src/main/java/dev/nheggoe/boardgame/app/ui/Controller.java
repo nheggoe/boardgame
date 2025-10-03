@@ -1,5 +1,7 @@
 package dev.nheggoe.boardgame.app.ui;
 
+import dev.nheggoe.boardgame.app.SceneSwitcher;
+
 import static java.util.Objects.requireNonNull;
 
 import java.io.IOException;

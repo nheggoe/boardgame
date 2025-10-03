@@ -1,8 +1,8 @@
 package dev.nheggoe.boardgame.app.controller;
 
-import dev.nheggoe.boardgame.app.ui.AlertFactory;
+import dev.nheggoe.boardgame.app.util.AlertFactory;
 import dev.nheggoe.boardgame.app.ui.Controller;
-import dev.nheggoe.boardgame.app.ui.SceneSwitcher;
+import dev.nheggoe.boardgame.app.SceneSwitcher;
 import dev.nheggoe.boardgame.app.view.MainView;
 import dev.nheggoe.boardgame.core.io.FileUtil;
 import java.io.IOException;

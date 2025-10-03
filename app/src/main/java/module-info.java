@@ -11,4 +11,5 @@ module dev.nheggoe.boardgame.app {
   opens dev.nheggoe.boardgame.app.component to javafx.controls;
   opens dev.nheggoe.boardgame.app.controller to javafx.controls;
   opens dev.nheggoe.boardgame.app.view to javafx.controls;
+  opens dev.nheggoe.boardgame.app.util to javafx.controls;
 }

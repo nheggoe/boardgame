@@ -1,5 +1,6 @@
 package dev.nheggoe.boardgame.app.ui;
 
+import dev.nheggoe.boardgame.app.SceneSwitcher;
 import dev.nheggoe.boardgame.app.component.MessagePanel;
 import dev.nheggoe.boardgame.app.component.PlayerDashboard;
 import dev.nheggoe.boardgame.app.component.RollDiceButton;

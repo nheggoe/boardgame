@@ -1,4 +1,4 @@
-package dev.nheggoe.boardgame.app.ui;
+package dev.nheggoe.boardgame.app.util;
 
 import javafx.scene.control.Alert;
 

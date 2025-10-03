@@ -3,7 +3,7 @@ package dev.nheggoe.boardgame.app.view;
 import dev.nheggoe.boardgame.app.component.PlayerRender;
 import dev.nheggoe.boardgame.app.component.SnakeAndLadderBoardRender;
 import dev.nheggoe.boardgame.app.ui.GameView;
-import dev.nheggoe.boardgame.app.ui.SceneSwitcher;
+import dev.nheggoe.boardgame.app.SceneSwitcher;
 import dev.nheggoe.boardgame.core.event.EventBus;
 import dev.nheggoe.boardgame.snake.model.SnakeAndLadderPlayer;
 import dev.nheggoe.boardgame.snake.model.tile.SnakeAndLadderTile;

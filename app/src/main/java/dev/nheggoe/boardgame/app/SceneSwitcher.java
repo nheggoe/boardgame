@@ -1,11 +1,13 @@
-package dev.nheggoe.boardgame.app.ui;
+package dev.nheggoe.boardgame.app;
 
 import static java.util.Objects.requireNonNull;
 
-import dev.nheggoe.boardgame.app.component.PlayerSetupController;
+import dev.nheggoe.boardgame.app.controller.PlayerSetupController;
 import dev.nheggoe.boardgame.app.controller.MainController;
 import dev.nheggoe.boardgame.app.controller.MonopolyGameController;
 import dev.nheggoe.boardgame.app.controller.SnakeGameController;
+import dev.nheggoe.boardgame.app.ui.Controller;
+import dev.nheggoe.boardgame.app.ui.View;
 import dev.nheggoe.boardgame.app.util.GameFactory;
 import dev.nheggoe.boardgame.app.util.PlayerManager;
 import dev.nheggoe.boardgame.core.GameEngine;

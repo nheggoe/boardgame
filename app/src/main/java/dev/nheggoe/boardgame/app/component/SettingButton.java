@@ -1,7 +1,7 @@
 package dev.nheggoe.boardgame.app.component;
 
 import dev.nheggoe.boardgame.app.ui.Component;
-import dev.nheggoe.boardgame.app.ui.SceneSwitcher;
+import dev.nheggoe.boardgame.app.SceneSwitcher;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;

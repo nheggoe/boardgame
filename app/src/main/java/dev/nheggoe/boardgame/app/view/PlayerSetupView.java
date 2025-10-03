@@ -1,7 +1,7 @@
 package dev.nheggoe.boardgame.app.view;
 
 import dev.nheggoe.boardgame.app.component.SettingButton;
-import dev.nheggoe.boardgame.app.ui.SceneSwitcher;
+import dev.nheggoe.boardgame.app.SceneSwitcher;
 import dev.nheggoe.boardgame.app.ui.View;
 import dev.nheggoe.boardgame.core.io.FileUtil;
 import dev.nheggoe.boardgame.core.io.csv.CSVHandler;

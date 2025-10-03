@@ -1,7 +1,7 @@
-package dev.nheggoe.boardgame.app.component;
+package dev.nheggoe.boardgame.app.controller;
 
 import dev.nheggoe.boardgame.app.ui.Controller;
-import dev.nheggoe.boardgame.app.ui.SceneSwitcher;
+import dev.nheggoe.boardgame.app.SceneSwitcher;
 import dev.nheggoe.boardgame.app.ui.View;
 import dev.nheggoe.boardgame.app.view.PlayerSetupView;
 

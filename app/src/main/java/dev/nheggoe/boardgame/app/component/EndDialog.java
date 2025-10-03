@@ -1,6 +1,6 @@
 package dev.nheggoe.boardgame.app.component;
 
-import dev.nheggoe.boardgame.app.ui.SceneSwitcher;
+import dev.nheggoe.boardgame.app.SceneSwitcher;
 import java.io.IOException;
 import java.io.UncheckedIOException;
 import javafx.application.Platform;

@@ -1,7 +1,7 @@
 package dev.nheggoe.boardgame.app;
 
-import dev.nheggoe.boardgame.app.ui.AlertFactory;
-import dev.nheggoe.boardgame.app.ui.SceneSwitcher;
+import dev.nheggoe.boardgame.app.util.AlertFactory;
+
 import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.util.function.Predicate;
