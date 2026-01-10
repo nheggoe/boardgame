@@ -1,13 +1,13 @@
 import org.gradle.api.tasks.testing.logging.TestLogEvent
 
 group = "dev.nheggoe.boardgame"
-version = "1.0.0"
+version = "1.0.1"
 
 subprojects {
 
-    val junitVersion = "6.0.0"
+    val junitVersion = "6.0.2"
     val assertjVersion = "3.27.6"
-    val mockitoVersion = "5.20.0"
+    val mockitoVersion = "5.21.0"
 
     repositories {
         mavenCentral()
@@ -37,6 +37,10 @@ subprojects {
                 TestLogEvent.FAILED,
             )
         }
+    }
+
+    tasks.named<Delete>("clean") {
+        delete("bin")
     }
 
 }
