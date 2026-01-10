@@ -19,15 +19,13 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 
-/**
- * Responsible for rendering and animating the players on the Snake and Ladder board.
- *
- * <p>Updates player visuals using the FigureAnimator. Maintains the position and figure state of
- * each player, ensuring consistent animation and synchronisation with the game model.
- *
- * @author Mihailo Hranisavljevic
- * @version 2025.05.23
- */
+/// Responsible for rendering and animating the players on the Snake and Ladder board.
+///
+/// Updates player visuals using the FigureAnimator. Maintains the position and figure state of
+/// each player, ensuring consistent animation and synchronisation with the game model.
+///
+/// @author Mihailo Hranisavljevic
+/// @version 2025.05.23
 public class PlayerRender extends Component {
 
   private final Supplier<List<SnakeAndLadderPlayer>> players;
@@ -42,14 +40,12 @@ public class PlayerRender extends Component {
 
   private final Map<SnakeAndLadderPlayer, RenderState> renderStates = new HashMap<>();
 
-  /**
-   * Constructs a PlayerRender responsible for updating player visuals on the board.
-   *
-   * @param tileGrid grid containing board tiles
-   * @param boardDimension square root of tile count, used to calculate tile position
-   * @param players supplier providing the list of players
-   * @param animationLayer transparent layer used to draw animated icons
-   */
+  /// Constructs a PlayerRender responsible for updating player visuals on the board.
+  ///
+  /// @param tileGrid grid containing board tiles
+  /// @param boardDimension square root of tile count, used to calculate tile position
+  /// @param players supplier providing the list of players
+  /// @param animationLayer transparent layer used to draw animated icons
   public PlayerRender(
       GridPane tileGrid,
       int boardDimension,
@@ -62,15 +58,13 @@ public class PlayerRender extends Component {
     Platform.runLater(this::renderAll);
   }
 
-  /** Re-renders all player icons in response to player movement. */
+  /// Re-renders all player icons in response to player movement.
   public void handlePlayerMoved() {
     Platform.runLater(this::renderAll);
   }
 
-  /**
-   * Renders all players according to their current positions. Calculates player offsets for correct
-   * stacking when multiple players occupy the same tile.
-   */
+  /// Renders all players according to their current positions. Calculates player offsets for correct
+  /// stacking when multiple players occupy the same tile.
   private void renderAll() {
     Map<Integer, List<SnakeAndLadderPlayer>> tileOccupants = new HashMap<>();
     for (SnakeAndLadderPlayer p : players.get()) {
@@ -102,26 +96,22 @@ public class PlayerRender extends Component {
     }
   }
 
-  /**
-   * Converts a 1-based tile index to a StackPane in the grid.
-   *
-   * @param index tile number (1-based)
-   * @return the StackPane at the tile's grid coordinates
-   */
+  /// Converts a 1-based tile index to a StackPane in the grid.
+  ///
+  /// @param index tile number (1-based)
+  /// @return the StackPane at the tile's grid coordinates
   private StackPane tileAtIndex(int index) {
     if (index < 1 || index > gridSize * gridSize) return tileAt(0, 0);
     var pos = SnakeBoardLayout.toGrid(index, gridSize);
     return tileAt((int) pos.getY(), (int) pos.getX());
   }
 
-  /**
-   * Retrieves the tile StackPane at the given grid coordinates.
-   *
-   * @param row row index
-   * @param col column index
-   * @return tile node at the specified coordinates
-   * @throws IllegalArgumentException if no node exists at the given location
-   */
+  /// Retrieves the tile StackPane at the given grid coordinates.
+  ///
+  /// @param row row index
+  /// @param col column index
+  /// @return tile node at the specified coordinates
+  /// @throws IllegalArgumentException if no node exists at the given location
   private StackPane tileAt(int row, int col) {
     for (var node : tileGrid.getChildren()) {
       int c = GridPane.getColumnIndex(node) == null ? 0 : GridPane.getColumnIndex(node);
@@ -131,13 +121,11 @@ public class PlayerRender extends Component {
     throw new IllegalArgumentException("Tile not found at (" + row + ',' + col + ')');
   }
 
-  /**
-   * Creates a graphical icon representing the player's figure. Uses image resource if found,
-   * otherwise renders a default coloured square.
-   *
-   * @param figure the enum describing the player's figure type
-   * @return an ImageView representing the figure
-   */
+  /// Creates a graphical icon representing the player's figure. Uses image resource if found,
+  /// otherwise renders a default coloured square.
+  ///
+  /// @param figure the enum describing the player's figure type
+  /// @return an ImageView representing the figure
   private ImageView createFigureVisual(Player.Figure figure) {
     String fileName = figure.name().toLowerCase().replace("_", "");
     String resourcePath = "images/" + fileName + ".png";

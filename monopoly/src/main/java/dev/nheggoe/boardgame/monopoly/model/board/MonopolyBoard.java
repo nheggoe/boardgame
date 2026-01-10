@@ -14,44 +14,38 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Represents a game board consisting of a list of tiles. Each tile has a unique position and can
- * have specific actions that are triggered when a player lands on them. Provides methods to
- * interact with and retrieve tiles on the board.
- *
- * <p>This class is immutable; once created, the tiles cannot be modified.
- *
- * @author Mihailo Hranisavljevic and Nick Heggø
- * @version 2025.04.22
- */
+/// Represents a game board consisting of a list of tiles. Each tile has a unique position and can
+/// have specific actions that are triggered when a player lands on them. Provides methods to
+/// interact with and retrieve tiles on the board.
+///
+/// This class is immutable; once created, the tiles cannot be modified.
+///
+/// @author Mihailo Hranisavljevic and Nick Heggø
+/// @version 2025.04.22
 public record MonopolyBoard(List<MonopolyTile> tiles) implements Board<MonopolyTile> {
 
-  /**
-   * Represents the Monopoly game board, which consists of a sequence of tiles arranged in a
-   * specific layout. The constructor initializes the board, validates its layout, and arranges the
-   * tiles in the appropriate configuration around the corners. The layout must meet the required
-   * structural and logical constraints.
-   *
-   * @param tiles the list of {@link MonopolyTile} objects that make up the board. It is assumed
-   *     that this list includes all necessary tiles (e.g., corner tiles, ownable tiles) and adheres
-   *     to the game's layout rules. The tiles are validated and rearranged to ensure proper
-   *     alignment before being stored in the board.
-   * @throws InvalidBoardLayoutException if the provided tiles do not constitute a valid board
-   *     layout (e.g., missing corners, incorrect number of tiles).
-   */
+  /// Represents the Monopoly game board, which consists of a sequence of tiles arranged in a
+  /// specific layout. The constructor initializes the board, validates its layout, and arranges the
+  /// tiles in the appropriate configuration around the corners. The layout must meet the required
+  /// structural and logical constraints.
+  ///
+  /// @param tiles the list of [MonopolyTile] objects that make up the board. It is assumed
+  ///     that this list includes all necessary tiles (e.g., corner tiles, ownable tiles) and adheres
+  ///     to the game's layout rules. The tiles are validated and rearranged to ensure proper
+  ///     alignment before being stored in the board.
+  /// @throws InvalidBoardLayoutException if the provided tiles do not constitute a valid board
+  ///     layout (e.g., missing corners, incorrect number of tiles).
   public MonopolyBoard {
     assertValidLayout(tiles);
     tiles = List.copyOf(alignTilesAroundCorners(tiles));
   }
 
-  /**
-   * Calculates the tile a player lands on after moving a specified number of steps from the
-   * provided starting tile.
-   *
-   * @param currentPosition the starting {@link MonopolyTile} from which the steps are calculated
-   * @param steps the number of steps to move forward from the starting tile
-   * @return the {@link MonopolyTile} the player lands on after moving the specified number of steps
-   */
+  /// Calculates the tile a player lands on after moving a specified number of steps from the
+  /// provided starting tile.
+  ///
+  /// @param currentPosition the starting [MonopolyTile] from which the steps are calculated
+  /// @param steps the number of steps to move forward from the starting tile
+  /// @return the [MonopolyTile] the player lands on after moving the specified number of steps
   public MonopolyTile getTileAfterSteps(int currentPosition, int steps) {
     if (currentPosition < 0) {
       throw new IllegalTilePositionException();
@@ -60,11 +54,9 @@ public record MonopolyBoard(List<MonopolyTile> tiles) implements Board<MonopolyT
     return tiles.get(nextIndex);
   }
 
-  /**
-   * Get the starting position for the game, which is used to place players on the starting point.
-   *
-   * @return the staring point of the game
-   */
+  /// Get the starting position for the game, which is used to place players on the starting point.
+  ///
+  /// @return the staring point of the game
   public StartMonopolyTile getStartingTile() {
     return tiles.stream()
         .filter(StartMonopolyTile.class::isInstance)
@@ -73,14 +65,12 @@ public record MonopolyBoard(List<MonopolyTile> tiles) implements Board<MonopolyT
         .orElseThrow(InvalidBoardLayoutException::new);
   }
 
-  /**
-   * Retrieves the jail tile from the board. This method searches through all tiles to find a tile
-   * that is an instance of {@link JailMonopolyTile}. If no jail tile is present, an exception is
-   * thrown.
-   *
-   * @return the {@link JailMonopolyTile} object representing the jail tile on the board
-   * @throws InvalidBoardLayoutException if no jail tile is found on the board
-   */
+  /// Retrieves the jail tile from the board. This method searches through all tiles to find a tile
+  /// that is an instance of [JailMonopolyTile]. If no jail tile is present, an exception is
+  /// thrown.
+  ///
+  /// @return the [JailMonopolyTile] object representing the jail tile on the board
+  /// @throws InvalidBoardLayoutException if no jail tile is found on the board
   public JailMonopolyTile getJailTile() {
     return tiles.stream()
         .filter(JailMonopolyTile.class::isInstance)
@@ -89,59 +79,49 @@ public record MonopolyBoard(List<MonopolyTile> tiles) implements Board<MonopolyT
         .orElseThrow(InvalidBoardLayoutException::new);
   }
 
-  /**
-   * Returns the total number of tiles on the Monopoly board.
-   *
-   * @return the number of tiles on the board
-   */
+  /// Returns the total number of tiles on the Monopoly board.
+  ///
+  /// @return the number of tiles on the board
   public int size() {
     return tiles.size();
   }
 
-  /**
-   * Retrieves the position of the specified tile on the board.
-   *
-   * @param tile the {@link MonopolyTile} whose position is to be determined
-   * @return the zero-based position of the tile on the board, or -1 if the tile is not found
-   */
+  /// Retrieves the position of the specified tile on the board.
+  ///
+  /// @param tile the [MonopolyTile] whose position is to be determined
+  /// @return the zero-based position of the tile on the board, or -1 if the tile is not found
   public int getTilePosition(MonopolyTile tile) {
     return tiles.indexOf(tile);
   }
 
-  /**
-   * Retrieves a tile at the provided position.
-   *
-   * @param position the position of the tile to retrieve
-   * @return the {@link MonopolyTile} object at the specified position
-   * @throws IndexOutOfBoundsException if the position is out of bounds
-   */
+  /// Retrieves a tile at the provided position.
+  ///
+  /// @param position the position of the tile to retrieve
+  /// @return the [MonopolyTile] object at the specified position
+  /// @throws IndexOutOfBoundsException if the position is out of bounds
   public MonopolyTile getTileAtIndex(int position) {
     return tiles.get(position);
   }
 
-  /**
-   * Returns the total number of tiles.
-   *
-   * @return the number of tiles
-   */
+  /// Returns the total number of tiles.
+  ///
+  /// @return the number of tiles
   public int getNumberOfTiles() {
     return tiles.size();
   }
 
-  /**
-   * The {@code Layout} enumeration defines the possible configurations or structures for a Monopoly
-   * board. This enum is designed to categorize different types of board setups that can be utilized
-   * in a game of Monopoly.
-   *
-   * <p>Each enum constant represents a unique board layout: - {@code NORMAL}: Represents the
-   * standard or default board layout. - {@code UNFAIR}: Represents a layout with potentially
-   * imbalanced features or setups. - {@code EASY}: Represents a simplified or beginner-friendly
-   * board layout.
-   *
-   * <p>This enum is used in conjunction with the MonopolyBoardFactory class to specify the desired
-   * board layout when generating a Monopoly board. It allows for clear and concise representation
-   * of the board configuration without requiring additional parameters or metadata.
-   */
+  /// The `Layout` enumeration defines the possible configurations or structures for a Monopoly
+  /// board. This enum is designed to categorize different types of board setups that can be utilized
+  /// in a game of Monopoly.
+  ///
+  /// Each enum constant represents a unique board layout: - `NORMAL`: Represents the
+  /// standard or default board layout. - `UNFAIR`: Represents a layout with potentially
+  /// imbalanced features or setups. - `EASY`: Represents a simplified or beginner-friendly
+  /// board layout.
+  ///
+  /// This enum is used in conjunction with the MonopolyBoardFactory class to specify the desired
+  /// board layout when generating a Monopoly board. It allows for clear and concise representation
+  /// of the board configuration without requiring additional parameters or metadata.
   public enum Layout {
     NORMAL,
     UNFAIR,

@@ -8,54 +8,44 @@ import dev.nheggoe.boardgame.snake.model.tile.SnakeAndLadderTile;
 import dev.nheggoe.boardgame.snake.model.tile.SnakeTile;
 import java.util.List;
 
-/**
- * Represents the board layout for a Snake and Ladder game.
- *
- * @param tiles the list of tiles composing the board
- * @author Nick Heggø, Mihailo Hranisavljevic
- * @version 2025.05.21
- */
+/// Represents the board layout for a Snake and Ladder game.
+///
+/// @param tiles the list of tiles composing the board
+/// @author Nick Heggø, Mihailo Hranisavljevic
+/// @version 2025.05.21
 public record SnakeAndLadderBoard(List<SnakeAndLadderTile> tiles)
     implements Board<SnakeAndLadderTile> {
 
-  /**
-   * Constructs a new SnakeAndLadderBoard.
-   *
-   * @param tiles the tile list to initialise the board with
-   * @throws InvalidBoardLayoutException if any tile is null or logically invalid
-   */
+  /// Constructs a new SnakeAndLadderBoard.
+  ///
+  /// @param tiles the tile list to initialise the board with
+  /// @throws InvalidBoardLayoutException if any tile is null or logically invalid
   public SnakeAndLadderBoard {
     validateTiles(tiles);
     tiles = List.copyOf(tiles);
   }
 
-  /**
-   * Returns the tile at the given index.
-   *
-   * @param index index of the tile (0-based)
-   * @return the tile at that index
-   */
+  /// Returns the tile at the given index.
+  ///
+  /// @param index index of the tile (0-based)
+  /// @return the tile at that index
   @Override
   public SnakeAndLadderTile getTileAtIndex(int index) {
     return tiles.get(index);
   }
 
-  /**
-   * Returns the total number of tiles.
-   *
-   * @return board size
-   */
+  /// Returns the total number of tiles.
+  ///
+  /// @return board size
   @Override
   public int size() {
     return tiles.size();
   }
 
-  /**
-   * Validates all tiles for null entries and logical consistency.
-   *
-   * @param tiles the tile list to check
-   * @throws InvalidBoardLayoutException on validation failure
-   */
+  /// Validates all tiles for null entries and logical consistency.
+  ///
+  /// @param tiles the tile list to check
+  /// @throws InvalidBoardLayoutException on validation failure
   private void validateTiles(List<SnakeAndLadderTile> tiles) {
     for (int index = 0; index < tiles.size(); index++) {
       var tile = tiles.get(index);
@@ -72,13 +62,11 @@ public record SnakeAndLadderBoard(List<SnakeAndLadderTile> tiles)
     }
   }
 
-  /**
-   * Validates a SnakeTile.
-   *
-   * @param index current index
-   * @param tile tile to check
-   * @throws InvalidBoardLayoutException if snake causes underflow
-   */
+  /// Validates a SnakeTile.
+  ///
+  /// @param index current index
+  /// @param tile tile to check
+  /// @throws InvalidBoardLayoutException if snake causes underflow
   private void assertSnakeTile(int index, SnakeTile tile) {
     if (index - tile.tilesToSlideBack() < 0) {
       throw new InvalidBoardLayoutException(
@@ -87,14 +75,12 @@ public record SnakeAndLadderBoard(List<SnakeAndLadderTile> tiles)
     }
   }
 
-  /**
-   * Validates a LadderTile to ensure it does not move the player before the first tile.
-   * Overshooting the end is allowed and will simply land the player on the last square.
-   *
-   * @param index the index of the tile
-   * @param tile the LadderTile instance
-   * @throws InvalidBoardLayoutException if skip is negative
-   */
+  /// Validates a LadderTile to ensure it does not move the player before the first tile.
+  /// Overshooting the end is allowed and will simply land the player on the last square.
+  ///
+  /// @param index the index of the tile
+  /// @param tile the LadderTile instance
+  /// @throws InvalidBoardLayoutException if skip is negative
   private void assertLadderTile(int index, LadderTile tile) {
     if (tile.tilesToSkip() < 0) {
       throw new InvalidBoardLayoutException(

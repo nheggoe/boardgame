@@ -9,22 +9,18 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-/**
- * {@code DiceControlPane} provides a simple UI component containing the roll button, allowing
- * players to roll the dice during their turn.
- *
- * <p>When clicked, the button rolls the dice, animates the dice faces, moves the current player,
- * refreshes the UI, and advances to the next player.
- *
- * @author Mihailo
- * @version 2025.05.06
- */
+/// `DiceControlPane` provides a simple UI component containing the roll button, allowing
+/// players to roll the dice during their turn.
+///
+/// When clicked, the button rolls the dice, animates the dice faces, moves the current player,
+/// refreshes the UI, and advances to the next player.
+///
+/// @author Mihailo
+/// @version 2025.05.06
 public class RollDiceButton extends Component {
 
-  /**
-   * Constructs a {@code DiceControlPane} with a roll button that controls the dice animation,
-   * logging, player movement, and UI refresh.
-   */
+  /// Constructs a `DiceControlPane` with a roll button that controls the dice animation,
+  /// logging, player movement, and UI refresh.
   public RollDiceButton(EventHandler<ActionEvent> rollDiceAction) {
     requireNonNull(rollDiceAction);
     Button button = new Button("Roll Dice");

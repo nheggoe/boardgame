@@ -13,34 +13,30 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 
-/**
- * Represents the primary UI view for the application, providing functionality for navigating to
- * specific game-related views and accessing application settings.
- *
- * <p>The view is built using a {@link BorderPane} as the root layout and contains: - A center pane
- * with buttons for navigating to the "Snake and Ladder" and "Monopoly" game views. - A settings
- * button positioned on the right side of the layout.
- *
- * <p>Extends {@link View} to enable advanced layout management and resource handling.
- */
+/// Represents the primary UI view for the application, providing functionality for navigating to
+/// specific game-related views and accessing application settings.
+///
+/// The view is built using a [BorderPane] as the root layout and contains: - A center pane
+/// with buttons for navigating to the "Snake and Ladder" and "Monopoly" game views. - A settings
+/// button positioned on the right side of the layout.
+///
+/// Extends [View] to enable advanced layout management and resource handling.
 public class MainView extends View {
 
-  /**
-   * Constructs the MainView and initializes its layout components.
-   *
-   * <p>The MainView utilizes a {@link BorderPane} as the root layout. It assigns a center pane,
-   * which contains buttons for navigating to "Snake and Ladder" and "Monopoly" game views.
-   * Additionally, it places a settings button on the right side of the layout to handle application
-   * settings.
-   *
-   * @param sceneSwitcher the {@code SceneSwitcher} used for managing scene transitions, must not be
-   *     {@code null}
-   * @param snake the {@code EventHandler<ActionEvent>} assigned to handle actions triggered by the
-   *     "Snake and Ladder" button
-   * @param monopoly the {@code EventHandler<ActionEvent>} assigned to handle actions triggered by
-   *     the "Monopoly" button
-   * @throws NullPointerException if any of the parameters are {@code null}
-   */
+  /// Constructs the MainView and initializes its layout components.
+  ///
+  /// The MainView utilizes a [BorderPane] as the root layout. It assigns a center pane,
+  /// which contains buttons for navigating to "Snake and Ladder" and "Monopoly" game views.
+  /// Additionally, it places a settings button on the right side of the layout to handle application
+  /// settings.
+  ///
+  /// @param sceneSwitcher the `SceneSwitcher` used for managing scene transitions, must not be
+  ///     `null`
+  /// @param snake the `EventHandler<ActionEvent>` assigned to handle actions triggered by the
+  ///     "Snake and Ladder" button
+  /// @param monopoly the `EventHandler<ActionEvent>` assigned to handle actions triggered by
+  ///     the "Monopoly" button
+  /// @throws NullPointerException if any of the parameters are `null`
   public MainView(
       SceneSwitcher sceneSwitcher,
       EventHandler<ActionEvent> snake,

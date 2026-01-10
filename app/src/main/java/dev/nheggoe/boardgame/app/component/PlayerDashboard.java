@@ -28,13 +28,11 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
-/**
- * {@code UIPane} is a dynamic sidebar for the Monopoly GUI. It displays each player as a visually
- * styled card including: name, balance, position, figure image, and owned properties.
- *
- * @author Mihailo Hranisavljevic and Nick Heggø
- * @version 2025.05.19
- */
+/// `UIPane` is a dynamic sidebar for the Monopoly GUI. It displays each player as a visually
+/// styled card including: name, balance, position, figure image, and owned properties.
+///
+/// @author Mihailo Hranisavljevic and Nick Heggø
+/// @version 2025.05.19
 public class PlayerDashboard<P extends Player> extends Component {
 
   private final HashMap<Player, PlayerInfoBox> playerRegistry = new HashMap<>();
@@ -47,12 +45,10 @@ public class PlayerDashboard<P extends Player> extends Component {
     Color.web("#e2e3e5")
   };
 
-  /**
-   * Constructs a new PlayerDashboard, which serves as the UI component displaying the players'
-   * information.
-   *
-   * @param playersSupplier the list of players to display in the dashboard, must not be null
-   */
+  /// Constructs a new PlayerDashboard, which serves as the UI component displaying the players'
+  /// information.
+  ///
+  /// @param playersSupplier the list of players to display in the dashboard, must not be null
   public PlayerDashboard(Supplier<List<P>> playersSupplier) {
 
     setPrefWidth(320);
@@ -97,11 +93,9 @@ public class PlayerDashboard<P extends Player> extends Component {
     VBox.setVgrow(scrollPane, Priority.ALWAYS);
   }
 
-  /**
-   * Handles player removal by graying out their card in the dashboard.
-   *
-   * @param player the player who was removed
-   */
+  /// Handles player removal by graying out their card in the dashboard.
+  ///
+  /// @param player the player who was removed
   public void handlePlayerRemoval(Player player) {
     PlayerInfoBox playerBox = playerRegistry.get(player);
     if (playerBox != null) {
@@ -110,16 +104,14 @@ public class PlayerDashboard<P extends Player> extends Component {
     }
   }
 
-  /** Refreshes all player displays in the sidebar. */
+  /// Refreshes all player displays in the sidebar.
   public void refresh() {
     playerRegistry.values().forEach(PlayerInfoBox::refresh);
   }
 
-  /**
-   * Highlights the specified player's card in the dashboard.
-   *
-   * @param player the player to highlight
-   */
+  /// Highlights the specified player's card in the dashboard.
+  ///
+  /// @param player the player to highlight
   public void highlightPlayer(Player player) {
     for (var entry : playerRegistry.entrySet()) {
       PlayerInfoBox box = entry.getValue();
@@ -129,7 +121,7 @@ public class PlayerDashboard<P extends Player> extends Component {
 
   // ------------------------  inner class  ------------------------
 
-  /** {@code PlayerInfoBox} represents a stylized card for one player. */
+  /// `PlayerInfoBox` represents a stylized card for one player.
   private static class PlayerInfoBox extends VBox {
     private static final String TITLE_FONT = "Georgia";
     private static final String BODY_FONT = "Verdana";
@@ -214,7 +206,7 @@ public class PlayerDashboard<P extends Player> extends Component {
       }
     }
 
-    /** Toggles a bright animated blue glow effect if it's the player's turn. */
+    /// Toggles a bright animated blue glow effect if it's the player's turn.
     private void setGlow(boolean active) {
       if (active && !isGrayedOut) {
         DropShadow glow = new DropShadow();
@@ -229,7 +221,7 @@ public class PlayerDashboard<P extends Player> extends Component {
       }
     }
 
-    /** Sets the card to a grayed-out state when player is removed. */
+    /// Sets the card to a grayed-out state when player is removed.
     private void setGrayedOut(boolean grayedOut) {
       this.isGrayedOut = grayedOut;
 

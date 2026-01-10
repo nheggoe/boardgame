@@ -13,13 +13,11 @@ import dev.nheggoe.boardgame.monopoly.model.ownable.Railroad;
 import dev.nheggoe.boardgame.monopoly.model.ownable.Utility;
 import java.lang.reflect.Type;
 
-/**
- * Specialized Gson adapter for the Ownable sealed interface. Handles serialization/deserialization
- * of Property, Railroad, and Utility implementations.
- *
- * @author Nick Heggø
- * @version 2025.05.18
- */
+/// Specialized Gson adapter for the Ownable sealed interface. Handles serialization/deserialization
+/// of Property, Railroad, and Utility implementations.
+///
+/// @author Nick Heggø
+/// @version 2025.05.18
 public class OwnableAdapter implements JsonSerializer<Ownable>, JsonDeserializer<Ownable> {
 
   private static final String TYPE_KEY = "type";

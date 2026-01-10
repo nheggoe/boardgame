@@ -19,33 +19,29 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 
-/**
- * Represents the view for the Monopoly game, extending the generic {@code GameView} class to
- * include Monopoly-specific components such as the game board, dice, and Monopoly tiles and
- * players.
- *
- * <p>This class defines the layout of the Monopoly game interface, including a center pane
- * containing the background, board, and dice views. It also manages the initialization of necessary
- * UI elements specific to the Monopoly game.
- */
+/// Represents the view for the Monopoly game, extending the generic `GameView` class to
+/// include Monopoly-specific components such as the game board, dice, and Monopoly tiles and
+/// players.
+///
+/// This class defines the layout of the Monopoly game interface, including a center pane
+/// containing the background, board, and dice views. It also manages the initialization of necessary
+/// UI elements specific to the Monopoly game.
 public class MonopolyGameView extends GameView<MonopolyTile, MonopolyPlayer> {
 
-  /**
-   * Constructs a new instance of the {@code MonopolyGameView} class, which serves as the view of
-   * the Monopoly game. This class is responsible for managing the game-specific UI elements such as
-   * the Monopoly board and dice.
-   *
-   * @param sceneSwitcher the {@link SceneSwitcher} instance responsible for handling scene
-   *     transitions; must not be {@code null}
-   * @param eventBus the {@link EventBus} used for communication and event handling between
-   *     components; must not be {@code null}
-   * @param tilesSupplier a {@link Supplier} that provides a list of {@link MonopolyTile} objects
-   *     representing the game board tiles; must not be {@code null}
-   * @param playersSupplier a {@link Supplier} that provides a list of {@link MonopolyPlayer}
-   *     objects representing the game's players; must not be {@code null}
-   * @param rollDiceHandler the {@link EventHandler} for handling dice roll actions triggered within
-   *     the game; must not be {@code null}
-   */
+  /// Constructs a new instance of the `MonopolyGameView` class, which serves as the view of
+  /// the Monopoly game. This class is responsible for managing the game-specific UI elements such as
+  /// the Monopoly board and dice.
+  ///
+  /// @param sceneSwitcher the [SceneSwitcher] instance responsible for handling scene
+  ///     transitions; must not be `null`
+  /// @param eventBus the [EventBus] used for communication and event handling between
+  ///     components; must not be `null`
+  /// @param tilesSupplier a [Supplier] that provides a list of [MonopolyTile] objects
+  ///     representing the game board tiles; must not be `null`
+  /// @param playersSupplier a [Supplier] that provides a list of [MonopolyPlayer]
+  ///     objects representing the game's players; must not be `null`
+  /// @param rollDiceHandler the [EventHandler] for handling dice roll actions triggered within
+  ///     the game; must not be `null`
   public MonopolyGameView(
       SceneSwitcher sceneSwitcher,
       EventBus eventBus,
@@ -80,21 +76,17 @@ public class MonopolyGameView extends GameView<MonopolyTile, MonopolyPlayer> {
     return center;
   }
 
-  /**
-   * Retrieves the dice view component.
-   *
-   * @return the {@link DiceView} instance
-   */
+  /// Retrieves the dice view component.
+  ///
+  /// @return the [DiceView] instance
   public DiceView getDiceView() {
     return (DiceView)
         getComponents().stream().filter(c -> c instanceof DiceView).findFirst().orElseThrow();
   }
 
-  /**
-   * Retrieves the monopoly board view component.
-   *
-   * @return the {@link MonopolyBoardView} instance
-   */
+  /// Retrieves the monopoly board view component.
+  ///
+  /// @return the [MonopolyBoardView] instance
   public MonopolyBoardView getMonopolyBoardView() {
     return (MonopolyBoardView)
         getComponents().stream()

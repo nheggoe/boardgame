@@ -10,38 +10,32 @@ import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.List;
 
-/**
- * Factory for creating Snake and Ladder boards from external files or data structures.
- *
- * @author Nick Heggø, Mihailo Hranisavljevic
- * @version 2025.05.22
- */
+/// Factory for creating Snake and Ladder boards from external files or data structures.
+///
+/// @author Nick Heggø, Mihailo Hranisavljevic
+/// @version 2025.05.22
 public class SnakeAndLadderBoardFactory {
 
   private SnakeAndLadderBoardFactory() {}
 
-  /**
-   * Returns a standard board from the default file.
-   *
-   * @return a new SnakeAndLadderBoard
-   * @throws IllegalStateException if the file fails to load or parse
-   */
+  /// Returns a standard board from the default file.
+  ///
+  /// @return a new SnakeAndLadderBoard
+  /// @throws IllegalStateException if the file fails to load or parse
   public static SnakeAndLadderBoard createBoard() {
     return createBoardFromCsv(Path.of("data/csv/snakeAndLadder.csv"));
   }
 
-  /**
-   * Reads a CSV file and constructs a {@link SnakeAndLadderBoard} from its rows.
-   *
-   * <p>Automatically detects and skips a header row if it begins with "Index,". Blank lines are
-   * ignored. Each data row must have exactly three comma-separated fields: index, tile type
-   * ("SNAKE", "LADDER" or "NORMAL"), and offset.
-   *
-   * @param csvFile the CSV file to read; may include a header line and blank lines
-   * @return a newly created {@code SnakeAndLadderBoard} containing one tile per row
-   * @throws IllegalStateException if the file is empty, cannot be read, or any data row does not
-   *     have exactly three columns or contains invalid values
-   */
+  /// Reads a CSV file and constructs a [SnakeAndLadderBoard] from its rows.
+  ///
+  /// Automatically detects and skips a header row if it begins with "Index,". Blank lines are
+  /// ignored. Each data row must have exactly three comma-separated fields: index, tile type
+  /// ("SNAKE", "LADDER" or "NORMAL"), and offset.
+  ///
+  /// @param csvFile the CSV file to read; may include a header line and blank lines
+  /// @return a newly created `SnakeAndLadderBoard` containing one tile per row
+  /// @throws IllegalStateException if the file is empty, cannot be read, or any data row does not
+  ///     have exactly three columns or contains invalid values
   public static SnakeAndLadderBoard createBoardFromCsv(Path csvFile) {
     try {
       List<String[]> lines = CSVReader.readAll(csvFile);
@@ -58,12 +52,10 @@ public class SnakeAndLadderBoardFactory {
     }
   }
 
-  /**
-   * Ensures each CSV data row has exactly 3 columns.
-   *
-   * @param lines raw CSV input including header
-   * @throws IllegalStateException if the column count is invalid
-   */
+  /// Ensures each CSV data row has exactly 3 columns.
+  ///
+  /// @param lines raw CSV input including header
+  /// @throws IllegalStateException if the column count is invalid
   private static void verifyCsvStructure(List<String[]> lines) {
     for (int i = 0; i < lines.size(); i++) {
       var tokens = lines.get(i);
@@ -75,13 +67,11 @@ public class SnakeAndLadderBoardFactory {
     }
   }
 
-  /**
-   * Instantiates a tile based on its row data.
-   *
-   * @param tokens the CSV line
-   * @return a tile instance
-   * @throws IllegalStateException on malformed input
-   */
+  /// Instantiates a tile based on its row data.
+  ///
+  /// @param tokens the CSV line
+  /// @return a tile instance
+  /// @throws IllegalStateException on malformed input
   private static SnakeAndLadderTile createTile(String[] tokens) {
     try {
       // TileType, Data

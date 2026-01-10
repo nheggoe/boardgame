@@ -10,13 +10,11 @@ import com.google.gson.JsonSerializer;
 import dev.nheggoe.boardgame.core.model.Board;
 import java.lang.reflect.Type;
 
-/**
- * Specialized Gson adapter for the Board interface. Handles serialization/deserialization of
- * MonopolyBoard and SnakeAndLadderBoard implementations.
- *
- * @author Nick Heggø
- * @version 2025.05.18
- */
+/// Specialized Gson adapter for the Board interface. Handles serialization/deserialization of
+/// MonopolyBoard and SnakeAndLadderBoard implementations.
+///
+/// @author Nick Heggø
+/// @version 2025.05.18
 public class BoardAdapter implements JsonSerializer<Board<?>>, JsonDeserializer<Board<?>> {
   @Override
   public JsonElement serialize(Board<?> board, Type type, JsonSerializationContext ctx) {

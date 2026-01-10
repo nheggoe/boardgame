@@ -10,14 +10,12 @@ import java.nio.file.StandardCopyOption;
 import java.util.List;
 import java.util.logging.Logger;
 
-/**
- * Utility class for handling file and directory operations. Provides methods to ensure that a
- * specified file and its parent directories exist, creating them if necessary. Supports generating
- * paths for standard and test environments with validated extensions.
- *
- * @author Nick Heggø
- * @version 2025.05.22
- */
+/// Utility class for handling file and directory operations. Provides methods to ensure that a
+/// specified file and its parent directories exist, creating them if necessary. Supports generating
+/// paths for standard and test environments with validated extensions.
+///
+/// @author Nick Heggø
+/// @version 2025.05.22
 public class FileUtil {
 
   private static final Logger LOGGER = Logger.getLogger(FileUtil.class.getName());
@@ -27,17 +25,15 @@ public class FileUtil {
 
   private FileUtil() {}
 
-  /**
-   * Generates a file path based on a given file name and file extension. The method validates the
-   * file extension against a predefined list of supported extensions and formats the file path
-   * using a specified template.
-   *
-   * @param fileName the name of the file; must not be null
-   * @param fileExtension the file extension; must not be null and must be supported
-   * @return the generated file path
-   * @throws NullPointerException if fileName or fileExtension is null
-   * @throws UnsupportedOperationException if the file extension is not supported
-   */
+  /// Generates a file path based on a given file name and file extension. The method validates the
+  /// file extension against a predefined list of supported extensions and formats the file path
+  /// using a specified template.
+  ///
+  /// @param fileName the name of the file; must not be null
+  /// @param fileExtension the file extension; must not be null and must be supported
+  /// @return the generated file path
+  /// @throws NullPointerException if fileName or fileExtension is null
+  /// @throws UnsupportedOperationException if the file extension is not supported
   public static Path generateFilePath(String fileName, String fileExtension) {
     requireNonNull(fileName, "File name cannot be null");
     requireNonNull(fileExtension, "File extension cannot be null");
@@ -49,13 +45,11 @@ public class FileUtil {
     return Path.of(FILE_PATH_TEMPLATE.formatted(ext, name, ext));
   }
 
-  /**
-   * Ensures that the specified file and its parent directories exist. If the directories do not
-   * exist, they will be created. If the file does not exist, it will be created.
-   *
-   * @param path the path to the file to ensure exists; must not be null
-   * @throws IOException if file or directories cannot be created
-   */
+  /// Ensures that the specified file and its parent directories exist. If the directories do not
+  /// exist, they will be created. If the file does not exist, it will be created.
+  ///
+  /// @param path the path to the file to ensure exists; must not be null
+  /// @throws IOException if file or directories cannot be created
   public static void ensureFileAndDirectoryExists(Path path) throws IOException {
     requireNonNull(path, "The path cannot be null");
 
@@ -67,15 +61,13 @@ public class FileUtil {
     }
   }
 
-  /**
-   * Ensures that the specified file exists. If the file doesn't exist or is corrupted, it will be
-   * created from the default resource file.
-   *
-   * @param path the path to the file to ensure exists
-   * @param defaultResourcePath the path to the default resource file (e.g.,
-   *     "/csv/players_default.csv")
-   * @throws IOException if file operations fail
-   */
+  /// Ensures that the specified file exists. If the file doesn't exist or is corrupted, it will be
+  /// created from the default resource file.
+  ///
+  /// @param path the path to the file to ensure exists
+  /// @param defaultResourcePath the path to the default resource file (e.g.,
+  ///     "/csv/players_default.csv")
+  /// @throws IOException if file operations fail
   public static void ensureFileWithDefault(Path path, String defaultResourcePath)
       throws IOException {
     requireNonNull(path, "The path cannot be null");
@@ -95,13 +87,11 @@ public class FileUtil {
     }
   }
 
-  /**
-   * Copies a resource file to the specified destination path.
-   *
-   * @param resourcePath the path to the resource file (must start with /)
-   * @param destinationPath the destination path
-   * @throws IOException if the resource cannot be found or copied
-   */
+  /// Copies a resource file to the specified destination path.
+  ///
+  /// @param resourcePath the path to the resource file (must start with /)
+  /// @param destinationPath the destination path
+  /// @throws IOException if the resource cannot be found or copied
   public static void copyFromResource(String resourcePath, Path destinationPath)
       throws IOException {
     try (InputStream resourceStream = FileUtil.class.getResourceAsStream(resourcePath)) {
@@ -114,12 +104,10 @@ public class FileUtil {
     }
   }
 
-  /**
-   * Validates if a file exists and is not corrupted (readable and non-empty).
-   *
-   * @param path the file path to validate
-   * @return true if the file is valid, false otherwise
-   */
+  /// Validates if a file exists and is not corrupted (readable and non-empty).
+  ///
+  /// @param path the file path to validate
+  /// @return true if the file is valid, false otherwise
   public static boolean isFileValid(Path path) {
     try {
       return Files.exists(path) && Files.isReadable(path) && Files.size(path) > 0;

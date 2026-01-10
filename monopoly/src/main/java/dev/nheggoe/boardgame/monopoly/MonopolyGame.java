@@ -31,23 +31,19 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.TreeMap;
 
-/**
- * Represents a Monopoly game. It is an extension of the generic {@code Game} class tailored to
- * Monopoly-specific tiles, players, and rules. Manages the gameplay logic, player turns, and
- * interactions with Monopoly tiles and actions.
- */
+/// Represents a Monopoly game. It is an extension of the generic `Game` class tailored to
+/// Monopoly-specific tiles, players, and rules. Manages the gameplay logic, player turns, and
+/// interactions with Monopoly tiles and actions.
 public class MonopolyGame extends Game<MonopolyTile, MonopolyPlayer> {
 
-  /**
-   * Constructs a new instance of the MonopolyGame class.
-   *
-   * <p>This constructor initializes the game with the provided event bus, game board, and list of
-   * players. Additionally, each player is given an initial balance of 200 units.
-   *
-   * @param eventBus the event bus used for managing game-related events
-   * @param monopolyBoard the game board used in the Monopoly game
-   * @param players the list of players participating in the game
-   */
+  /// Constructs a new instance of the MonopolyGame class.
+  ///
+  /// This constructor initializes the game with the provided event bus, game board, and list of
+  /// players. Additionally, each player is given an initial balance of 200 units.
+  ///
+  /// @param eventBus the event bus used for managing game-related events
+  /// @param monopolyBoard the game board used in the Monopoly game
+  /// @param players the list of players participating in the game
   public MonopolyGame(
       EventBus eventBus, MonopolyBoard monopolyBoard, List<MonopolyPlayer> players) {
     super(eventBus, monopolyBoard, players);
@@ -90,13 +86,11 @@ public class MonopolyGame extends Game<MonopolyTile, MonopolyPlayer> {
     }
   }
 
-  /**
-   * In Monopoly, a player gets to roll again immediately if:
-   * <li>They roll doubles (the same number on both dice) But, if a player rolls doubles three times
-   *     in a row, they go to jail immediately instead of taking a third extra turn.
-   *
-   * @param player the player to play a turn (roll -> move -> action)
-   */
+  /// In Monopoly, a player gets to roll again immediately if:
+  ///   - They roll doubles (the same number on both dice) But, if a player rolls doubles three times
+  ///     in a row, they go to jail immediately instead of taking a third extra turn.
+  ///
+  ///     @param player the player to play a turn (roll -> move -> action)
   private DiceRoll playTurn(MonopolyPlayer player) {
     var diceRoll = Dice.roll(2);
     notifyDiceRolled(diceRoll);
@@ -150,12 +144,10 @@ public class MonopolyGame extends Game<MonopolyTile, MonopolyPlayer> {
 
   // ------------------------  private  ------------------------
 
-  /**
-   * Factory method to create a {@code TileAction} based on the type of tile.
-   *
-   * @param tile the tile the player has landed on
-   * @return the corresponding TileAction
-   */
+  /// Factory method to create a `TileAction` based on the type of tile.
+  ///
+  /// @param tile the tile the player has landed on
+  /// @return the corresponding TileAction
   private TileAction<MonopolyPlayer> tileActionOf(MonopolyTile tile) {
     return switch (tile) {
       case OwnableMonopolyTile(Ownable ownable) -> ownableAction(ownable);
@@ -307,13 +299,11 @@ public class MonopolyGame extends Game<MonopolyTile, MonopolyPlayer> {
                 }));
   }
 
-  /**
-   * Attempts to finalise a purchase, deducting the player's balance.
-   *
-   * @param player the player
-   * @param ownable the asset being purchased
-   * @return true if successful, false if insufficient funds
-   */
+  /// Attempts to finalise a purchase, deducting the player's balance.
+  ///
+  /// @param player the player
+  /// @param ownable the asset being purchased
+  /// @return true if successful, false if insufficient funds
   private boolean processPurchase(MonopolyPlayer player, Ownable ownable) {
     try {
       player.purchase(ownable);
@@ -323,12 +313,10 @@ public class MonopolyGame extends Game<MonopolyTile, MonopolyPlayer> {
     }
   }
 
-  /**
-   * Allows the player to upgrade a property if possible.
-   *
-   * @param owner the property owner
-   * @param property the property to upgrade
-   */
+  /// Allows the player to upgrade a property if possible.
+  ///
+  /// @param owner the property owner
+  /// @param property the property to upgrade
   private void handleUpgrade(MonopolyPlayer owner, Property property) {
     if (property.hasHotel()) {
       println(
@@ -344,12 +332,10 @@ public class MonopolyGame extends Game<MonopolyTile, MonopolyPlayer> {
     }
   }
 
-  /**
-   * Asks the player if they want to build a house.
-   *
-   * @param player the player
-   * @param property the property to upgrade
-   */
+  /// Asks the player if they want to build a house.
+  ///
+  /// @param player the player
+  /// @param property the property to upgrade
   private void askToBuildHouse(MonopolyPlayer player, Property property) {
     println(
         "%s has %d houses on %s."
@@ -377,12 +363,10 @@ public class MonopolyGame extends Game<MonopolyTile, MonopolyPlayer> {
                 }));
   }
 
-  /**
-   * Asks the player if they want to build a hotel after building enough houses.
-   *
-   * @param player the player
-   * @param property the property to upgrade
-   */
+  /// Asks the player if they want to build a hotel after building enough houses.
+  ///
+  /// @param player the player
+  /// @param property the property to upgrade
   private void askToBuildHotel(MonopolyPlayer player, Property property) {
     println("%s has 4 houses on %s.".formatted(player.getName(), property.getName()));
 

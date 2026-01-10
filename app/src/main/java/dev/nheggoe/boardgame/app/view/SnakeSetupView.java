@@ -9,22 +9,20 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 
-/**
- * View to set up a Snake and Ladder game. Players input their names, configure settings, and start
- * the game.
- *
- * <p>This view provides a simple UI with text fields for entering up to four player names and a
- * button to begin the game.
- *
- * @author Nick Heggø, Mihailo Hranisavljevic
- * @version 2025.05.21
- */
+/// View to set up a Snake and Ladder game. Players input their names, configure settings, and start
+/// the game.
+///
+/// This view provides a simple UI with text fields for entering up to four player names and a
+/// button to begin the game.
+///
+/// @author Nick Heggø, Mihailo Hranisavljevic
+/// @version 2025.05.21
 public class SnakeSetupView extends View {
 
   private final List<TextField> playerInputs;
   private final Button startGameButton;
 
-  /** Constructs the SnakeSetupView and initialises the input fields and layout. */
+  /// Constructs the SnakeSetupView and initialises the input fields and layout.
   public SnakeSetupView() {
     this.playerInputs = new ArrayList<>();
     this.startGameButton = new Button("Start Game");
@@ -36,11 +34,9 @@ public class SnakeSetupView extends View {
     getChildren().add(root);
   }
 
-  /**
-   * Returns a list of non-empty player names entered.
-   *
-   * @return list of player names
-   */
+  /// Returns a list of non-empty player names entered.
+  ///
+  /// @return list of player names
   public List<String> getPlayerNames() {
     List<String> playerNames = new ArrayList<>();
     for (var textField : playerInputs) {
@@ -52,11 +48,9 @@ public class SnakeSetupView extends View {
     return playerNames;
   }
 
-  /**
-   * Returns the button used to start the game.
-   *
-   * @return the start game button
-   */
+  /// Returns the button used to start the game.
+  ///
+  /// @return the start game button
   public Button getStartGameButton() {
     return startGameButton;
   }

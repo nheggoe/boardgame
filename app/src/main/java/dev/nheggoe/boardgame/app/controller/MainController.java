@@ -12,12 +12,10 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Alert;
 
-/**
- * The MainController class is responsible for initializing and managing the main functionality of
- * the application, including the preparation of default data files, handling the game scene
- * transitions, and offering file repair functionality. It extends the base {@code Controller} class
- * to integrate with the application’s scene management.
- */
+/// The MainController class is responsible for initializing and managing the main functionality of
+/// the application, including the preparation of default data files, handling the game scene
+/// transitions, and offering file repair functionality. It extends the base `Controller` class
+/// to integrate with the application’s scene management.
 public class MainController extends Controller {
 
   private static final Logger LOGGER = Logger.getLogger(MainController.class.getName());
@@ -26,20 +24,18 @@ public class MainController extends Controller {
   private Path snakeAndLadderCsv;
   private Path monopolyCsv;
 
-  /**
-   * Constructs a MainController instance, a specific implementation of {@link Controller},
-   * responsible for managing the main view of the application and initializing necessary data
-   * files.
-   *
-   * @param sceneSwitcher the {@link SceneSwitcher} responsible for managing scene transitions; must
-   *     not be null
-   */
+  /// Constructs a MainController instance, a specific implementation of [Controller],
+  /// responsible for managing the main view of the application and initializing necessary data
+  /// files.
+  ///
+  /// @param sceneSwitcher the [SceneSwitcher] responsible for managing scene transitions; must
+  ///     not be null
   public MainController(SceneSwitcher sceneSwitcher) {
     super(sceneSwitcher, createMainView(sceneSwitcher));
     initializeDataFiles();
   }
 
-  /** Initializes data files, creating them from defaults if necessary. */
+  /// Initializes data files, creating them from defaults if necessary.
   private void initializeDataFiles() {
     try {
       // Initialize players CSV
@@ -62,7 +58,7 @@ public class MainController extends Controller {
     }
   }
 
-  /** Shows an error dialog when file initialization fails. */
+  /// Shows an error dialog when file initialization fails.
   private void showFileInitializationError(IOException e) {
     AlertFactory.createAlert(
             Alert.AlertType.ERROR,
@@ -72,7 +68,7 @@ public class MainController extends Controller {
         .showAndWait();
   }
 
-  /** Attempts to repair corrupted data files by copying from defaults. */
+  /// Attempts to repair corrupted data files by copying from defaults.
   public void repairDataFiles() {
     try {
       // Check and repair each file

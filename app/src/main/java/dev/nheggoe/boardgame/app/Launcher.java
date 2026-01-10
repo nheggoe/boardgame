@@ -12,14 +12,12 @@ import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
-/**
- * The {@link Launcher} class is the entry point of the program.
- *
- * @author Nick Heggø
- * @version 2025.04.15
- */
+/// The [Launcher] class is the entry point of the program.
+///
+/// @author Nick Heggø
+/// @version 2025.04.15
 public class Launcher extends Application {
-  /** The main method creates a new instance of the Game class and runs it. */
+  /// The main method creates a new instance of the Game class and runs it.
   public static void main(String[] args) {
     launch(args);
   }

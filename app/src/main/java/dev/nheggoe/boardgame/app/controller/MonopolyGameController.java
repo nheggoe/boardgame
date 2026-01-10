@@ -1,9 +1,9 @@
 package dev.nheggoe.boardgame.app.controller;
 
-import dev.nheggoe.boardgame.app.component.EndDialog;
-import dev.nheggoe.boardgame.app.util.AlertFactory;
-import dev.nheggoe.boardgame.app.ui.Controller;
 import dev.nheggoe.boardgame.app.SceneSwitcher;
+import dev.nheggoe.boardgame.app.component.EndDialog;
+import dev.nheggoe.boardgame.app.ui.Controller;
+import dev.nheggoe.boardgame.app.util.AlertFactory;
 import dev.nheggoe.boardgame.app.view.MonopolyGameView;
 import dev.nheggoe.boardgame.core.GameEngine;
 import dev.nheggoe.boardgame.core.event.EventBus;
@@ -23,34 +23,30 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 
-/**
- * MonopolyGameController is responsible for orchestrating the gameplay flow of a Monopoly game
- * within the application's architecture. It acts as a concrete implementation of the abstract
- * {@link Controller} class, integrating the game logic, view updates, and scene transitions for the
- * Monopoly game.
- *
- * <p>The controller manages the game's lifecycle, including handling player turns and determining
- * when the game has ended. Upon game completion, a dialog is displayed to notify players.
- *
- * <p>The controller implements {@link EventListener} and orchestrates all UI components by
- * listening to events and calling component public APIs directly.
- */
+/// MonopolyGameController is responsible for orchestrating the gameplay flow of a Monopoly game
+/// within the application's architecture. It acts as a concrete implementation of the abstract
+/// [Controller] class, integrating the game logic, view updates, and scene transitions for the
+/// Monopoly game.
+///
+/// The controller manages the game's lifecycle, including handling player turns and determining
+/// when the game has ended. Upon game completion, a dialog is displayed to notify players.
+///
+/// The controller implements [EventListener] and orchestrates all UI components by
+/// listening to events and calling component public APIs directly.
 public class MonopolyGameController extends Controller implements EventListener {
 
   private final EventBus eventBus;
   private final MonopolyGameView view;
 
-  /**
-   * Constructs a new instance of the MonopolyGameController.
-   *
-   * @param sceneSwitcher the {@link SceneSwitcher} responsible for managing scene transitions in
-   *     the application; must not be null
-   * @param eventBus the {@link EventBus} used for handling and dispatching events across different
-   *     components; must not be null
-   * @param gameEngine the {@link GameEngine} managing the core logic for the Monopoly game,
-   *     including tiles and players; must not be null
-   * @throws NullPointerException if any of the provided arguments are null
-   */
+  /// Constructs a new instance of the MonopolyGameController.
+  ///
+  /// @param sceneSwitcher the [SceneSwitcher] responsible for managing scene transitions in
+  ///     the application; must not be null
+  /// @param eventBus the [EventBus] used for handling and dispatching events across different
+  ///     components; must not be null
+  /// @param gameEngine the [GameEngine] managing the core logic for the Monopoly game,
+  ///     including tiles and players; must not be null
+  /// @throws NullPointerException if any of the provided arguments are null
   public MonopolyGameController(
       SceneSwitcher sceneSwitcher,
       EventBus eventBus,

@@ -16,13 +16,11 @@ import dev.nheggoe.boardgame.monopoly.model.tile.StartMonopolyTile;
 import dev.nheggoe.boardgame.monopoly.model.tile.TaxMonopolyTile;
 import java.lang.reflect.Type;
 
-/**
- * Specialized Gson adapter for the MonopolyTile sealed interface. Handles
- * serialization/deserialization of all MonopolyTile implementations.
- *
- * @author Nick Heggø
- * @version 2025.05.18
- */
+/// Specialized Gson adapter for the MonopolyTile sealed interface. Handles
+/// serialization/deserialization of all MonopolyTile implementations.
+///
+/// @author Nick Heggø
+/// @version 2025.05.18
 public class MonopolyTileAdapter
     implements JsonSerializer<MonopolyTile>, JsonDeserializer<MonopolyTile> {
 

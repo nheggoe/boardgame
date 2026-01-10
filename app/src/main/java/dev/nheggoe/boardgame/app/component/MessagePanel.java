@@ -17,30 +17,25 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.util.Duration;
 
-/**
- * The {@code MessageLog} class represents a stylized dialogue box component. It displays game
- * messages with a typewriter effect and supports skipping to the full message instantly.
- *
- * <p>This class is intended to be placed at the bottom of the game scene as a feedback area for
- * players, showing narration or action logs in a visually engaging format.
- *
- * <p>Example usage:
- *
- * <pre>{@code
- * MessageLog log = new MessageLog();
- * log.log("Kaia rolled a 6 and landed on Tile 10!");
- * }</pre>
- *
- * @author Mihailo Hranisavljevic
- * @version 2025.05.16
- */
+/// The `MessageLog` class represents a stylized dialogue box component. It displays game
+/// messages with a typewriter effect and supports skipping to the full message instantly.
+///
+/// This class is intended to be placed at the bottom of the game scene as a feedback area for
+/// players, showing narration or action logs in a visually engaging format.
+///
+/// Example usage:
+/// <pre>
+/// `MessageLog log = new MessageLog();log.log("Kaia rolled a 6 and landed on Tile 10!");`</pre>
+///
+/// @author Mihailo Hranisavljevic
+/// @version 2025.05.16
 public class MessagePanel extends Component {
   private final Label textLabel;
 
   private final StringBuilder currentMessage;
   private Timeline typewriter;
 
-  /** Constructs a new {@code MessageLog} with visuals and animation. */
+  /// Constructs a new `MessageLog` with visuals and animation.
   public MessagePanel() {
 
     setBackground(
@@ -64,12 +59,10 @@ public class MessagePanel extends Component {
     StackPane.setMargin(textLabel, new Insets(10));
   }
 
-  /**
-   * Displays a message in the log with a typewriter effect. If a previous message is still typing,
-   * it is interrupted.
-   *
-   * @param object the message to display
-   */
+  /// Displays a message in the log with a typewriter effect. If a previous message is still typing,
+  /// it is interrupted.
+  ///
+  /// @param object the message to display
   public void animateMessage(Object object) {
     AtomicInteger charIndex = new AtomicInteger();
     if (typewriter != null) {
@@ -97,10 +90,8 @@ public class MessagePanel extends Component {
     typewriter.play();
   }
 
-  /**
-   * Instantly completes the current message animation and shows the full message. Useful when the
-   * player presses a key or clicks to skip.
-   */
+  /// Instantly completes the current message animation and shows the full message. Useful when the
+  /// player presses a key or clicks to skip.
   public void skipToFullText() {
     if (typewriter != null && typewriter.getStatus() == Animation.Status.RUNNING) {
       typewriter.stop();

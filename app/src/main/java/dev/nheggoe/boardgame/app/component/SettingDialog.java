@@ -10,22 +10,18 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.scene.layout.VBox;
 
-/**
- * Represents a custom JavaFX settings dialog for applications, extending the {@code Dialog} with
- * custom behavior for navigation and application management.
- */
+/// Represents a custom JavaFX settings dialog for applications, extending the `Dialog` with
+/// custom behavior for navigation and application management.
 public class SettingDialog extends Dialog<ButtonType> {
 
-  /**
-   * Constructs a new {@code SettingDialog} instance to display a settings dialog in the
-   * application. This dialog offers navigation options such as editing saved players, returning to
-   * the main menu, or exiting the application.
-   *
-   * @param sceneSwitcher an instance of {@code SceneSwitcher} used to manage scene transitions;
-   *     must not be null
-   * @param inGame a boolean flag indicating if the dialog is displayed during a game session; if
-   *     true, certain options may be disabled
-   */
+  /// Constructs a new `SettingDialog` instance to display a settings dialog in the
+  /// application. This dialog offers navigation options such as editing saved players, returning to
+  /// the main menu, or exiting the application.
+  ///
+  /// @param sceneSwitcher an instance of `SceneSwitcher` used to manage scene transitions;
+  ///     must not be null
+  /// @param inGame a boolean flag indicating if the dialog is displayed during a game session; if
+  ///     true, certain options may be disabled
   public SettingDialog(SceneSwitcher sceneSwitcher, boolean inGame) {
     var root = getDialogPane();
     root.setPrefWidth(300);

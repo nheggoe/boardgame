@@ -16,22 +16,18 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
-/**
- * Represents the core logic of a Snake and Ladder game. Handles player turns, movement, tile
- * effects, and game completion.
- *
- * @author Nick Heggø, Mihailo Hranisavljevic
- * @version 2025.05.21
- */
+/// Represents the core logic of a Snake and Ladder game. Handles player turns, movement, tile
+/// effects, and game completion.
+///
+/// @author Nick Heggø, Mihailo Hranisavljevic
+/// @version 2025.05.21
 public class SnakeAndLadderGame extends Game<SnakeAndLadderTile, SnakeAndLadderPlayer> {
 
-  /**
-   * Constructs a new Snake and Ladder game.
-   *
-   * @param eventBus event bus for broadcasting game events
-   * @param board the board layout with snake and ladder tiles
-   * @param players list of players in the game
-   */
+  /// Constructs a new Snake and Ladder game.
+  ///
+  /// @param eventBus event bus for broadcasting game events
+  /// @param board the board layout with snake and ladder tiles
+  /// @param players list of players in the game
   public SnakeAndLadderGame(
       EventBus eventBus, Board<SnakeAndLadderTile> board, List<SnakeAndLadderPlayer> players) {
     super(eventBus, board, players);
@@ -40,17 +36,15 @@ public class SnakeAndLadderGame extends Game<SnakeAndLadderTile, SnakeAndLadderP
     }
   }
 
-  /** Executes the next player's turn by rolling the dice and applying tile effects. */
+  /// Executes the next player's turn by rolling the dice and applying tile effects.
   @Override
   public void nextTurn() {
     rollAndMovePlayer(getNextPlayer());
   }
 
-  /**
-   * Rolls a die for the given player, moves them, and applies tile logic.
-   *
-   * @param player the player taking the turn
-   */
+  /// Rolls a die for the given player, moves them, and applies tile logic.
+  ///
+  /// @param player the player taking the turn
   private void rollAndMovePlayer(SnakeAndLadderPlayer player) {
     var diceRoll = Dice.roll(1);
     movePlayer(player, diceRoll.getTotal());
@@ -72,12 +66,10 @@ public class SnakeAndLadderGame extends Game<SnakeAndLadderTile, SnakeAndLadderP
     }
   }
 
-  /**
-   * Returns the tile action corresponding to the tile type.
-   *
-   * @param tile the tile the player landed on
-   * @return the appropriate tile action
-   */
+  /// Returns the tile action corresponding to the tile type.
+  ///
+  /// @param tile the tile the player landed on
+  /// @return the appropriate tile action
   private TileAction<SnakeAndLadderPlayer> tileActionOf(SnakeAndLadderTile tile) {
     return switch (tile) {
       case SnakeTile(int tilesToSlideBack) -> snakeTileAction(tilesToSlideBack);
@@ -86,12 +78,10 @@ public class SnakeAndLadderGame extends Game<SnakeAndLadderTile, SnakeAndLadderP
     };
   }
 
-  /**
-   * Returns a snake tile action that slides the player back.
-   *
-   * @param tilesToSlideBack number of tiles to move back
-   * @return tile action applying the snake effect
-   */
+  /// Returns a snake tile action that slides the player back.
+  ///
+  /// @param tilesToSlideBack number of tiles to move back
+  /// @return tile action applying the snake effect
   private TileAction<SnakeAndLadderPlayer> snakeTileAction(int tilesToSlideBack) {
     return player -> {
       int from = player.getPosition();
@@ -104,12 +94,10 @@ public class SnakeAndLadderGame extends Game<SnakeAndLadderTile, SnakeAndLadderP
     };
   }
 
-  /**
-   * Returns a ladder tile action that moves the player forward.
-   *
-   * @param tilesToSkip number of tiles to move forward
-   * @return tile action applying the ladder effect
-   */
+  /// Returns a ladder tile action that moves the player forward.
+  ///
+  /// @param tilesToSkip number of tiles to move forward
+  /// @return tile action applying the ladder effect
   private TileAction<SnakeAndLadderPlayer> ladderTileAction(int tilesToSkip) {
     return player -> {
       int from = player.getPosition();
@@ -122,31 +110,25 @@ public class SnakeAndLadderGame extends Game<SnakeAndLadderTile, SnakeAndLadderP
     };
   }
 
-  /**
-   * Casts the base board to a SnakeAndLadderBoard.
-   *
-   * @return the cast board
-   */
+  /// Casts the base board to a SnakeAndLadderBoard.
+  ///
+  /// @return the cast board
   @Override
   public SnakeAndLadderBoard getBoard() {
     return (SnakeAndLadderBoard) super.getBoard();
   }
 
-  /**
-   * Completes the game when a player reaches the final tile.
-   *
-   * @param player the player who triggered the game end
-   */
+  /// Completes the game when a player reaches the final tile.
+  ///
+  /// @param player the player who triggered the game end
   @Override
   protected void completeRoundAction(SnakeAndLadderPlayer player) {
     endGame();
   }
 
-  /**
-   * Determines the winner based on tile position.
-   *
-   * @return entry of tile position of the winning player
-   */
+  /// Determines the winner based on tile position.
+  ///
+  /// @return entry of tile position of the winning player
   @Override
   public Map.Entry<Integer, List<SnakeAndLadderPlayer>> getWinners() {
     var treeMap = new TreeMap<Integer, List<SnakeAndLadderPlayer>>();
@@ -156,12 +138,10 @@ public class SnakeAndLadderGame extends Game<SnakeAndLadderTile, SnakeAndLadderP
     return treeMap.reversed().firstEntry();
   }
 
-  /**
-   * Moves a player by a given number of tiles, respecting board boundaries.
-   *
-   * @param player the player to move
-   * @param delta the number of tiles to move forward
-   */
+  /// Moves a player by a given number of tiles, respecting board boundaries.
+  ///
+  /// @param player the player to move
+  /// @param delta the number of tiles to move forward
   @Override
   public void movePlayer(SnakeAndLadderPlayer player, int delta) {
     int oldPosition = player.getPosition();

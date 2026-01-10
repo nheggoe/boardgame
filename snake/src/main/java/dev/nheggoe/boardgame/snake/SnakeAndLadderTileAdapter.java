@@ -13,11 +13,9 @@ import dev.nheggoe.boardgame.snake.model.tile.SnakeAndLadderTile;
 import dev.nheggoe.boardgame.snake.model.tile.SnakeTile;
 import java.lang.reflect.Type;
 
-/**
- * A Gson adapter for the {@code SnakeAndLadderTile} sealed interface. This class handles the
- * serialization and deserialization of the different implementations of {@code SnakeAndLadderTile},
- * which include {@code LadderTile}, {@code NormalTile}, and {@code SnakeTile}.
- */
+/// A Gson adapter for the `SnakeAndLadderTile` sealed interface. This class handles the
+/// serialization and deserialization of the different implementations of `SnakeAndLadderTile`,
+/// which include `LadderTile`, `NormalTile`, and `SnakeTile`.
 public class SnakeAndLadderTileAdapter
     implements JsonSerializer<SnakeAndLadderTile>, JsonDeserializer<SnakeAndLadderTile> {
 

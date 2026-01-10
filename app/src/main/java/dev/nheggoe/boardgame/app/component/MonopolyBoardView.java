@@ -36,14 +36,12 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
-/**
- * A visual representation of the Monopoly game board.
- *
- * <p>The class handles rendering the board with its tiles and players, managing visual updates for
- * player movements, property ownership changes, and upgrades. It leverages suppliers to dynamically
- * retrieve the current game state for tiles and players. The class also binds to the scene
- * properties to ensure a responsive layout during gameplay.
- */
+/// A visual representation of the Monopoly game board.
+///
+/// The class handles rendering the board with its tiles and players, managing visual updates for
+/// player movements, property ownership changes, and upgrades. It leverages suppliers to dynamically
+/// retrieve the current game state for tiles and players. The class also binds to the scene
+/// properties to ensure a responsive layout during gameplay.
 public class MonopolyBoardView extends Component {
   private final GridPane board;
 
@@ -57,13 +55,11 @@ public class MonopolyBoardView extends Component {
     Color.web("#e2e3e5")
   };
 
-  /**
-   * Constructs a MonopolyBoardView that serves as the visual representation of a Monopoly game
-   * board. This class initializes the board layout.
-   *
-   * @param playersSupplier a supplier providing the list of Monopoly players in the game
-   * @param tilesSupplier a supplier providing the list of tiles (spaces) on the Monopoly board
-   */
+  /// Constructs a MonopolyBoardView that serves as the visual representation of a Monopoly game
+  /// board. This class initializes the board layout.
+  ///
+  /// @param playersSupplier a supplier providing the list of Monopoly players in the game
+  /// @param tilesSupplier a supplier providing the list of tiles (spaces) on the Monopoly board
   public MonopolyBoardView(
       Supplier<List<MonopolyPlayer>> playersSupplier, Supplier<List<MonopolyTile>> tilesSupplier) {
     this.playersSupplier = playersSupplier;
@@ -74,13 +70,11 @@ public class MonopolyBoardView extends Component {
     initialize(tilesSupplier, playersSupplier);
   }
 
-  /**
-   * Updates the visual representation of a player's position on the game board. This method is
-   * called when a player moves to a new position on the board.
-   *
-   * @param player the player who has moved
-   * @param position the new position of the player on the board
-   */
+  /// Updates the visual representation of a player's position on the game board. This method is
+  /// called when a player moves to a new position on the board.
+  ///
+  /// @param player the player who has moved
+  /// @param position the new position of the player on the board
   public void playerMoved(Player player, int position) {
     // Remove light ring from all tiles
     removeAllLightRings();
@@ -131,11 +125,9 @@ public class MonopolyBoardView extends Component {
     }
   }
 
-  /**
-   * Adds a light ring effect around the tile that the player is currently on.
-   *
-   * @param tilePane the tile pane to add the light ring to
-   */
+  /// Adds a light ring effect around the tile that the player is currently on.
+  ///
+  /// @param tilePane the tile pane to add the light ring to
   private void addLightRingToTile(StackPane tilePane) {
     // Create a glowing border effect for the current tile
     BorderStroke glowStroke =
@@ -156,7 +148,7 @@ public class MonopolyBoardView extends Component {
         "-fx-border-color: transparent; -fx-effect: dropshadow(three-pass-box, deepskyblue, 10, 0.5, 0, 0);");
   }
 
-  /** Removes light ring effects from all tiles on the board. */
+  /// Removes light ring effects from all tiles on the board.
   private void removeAllLightRings() {
     // Iterate through all tiles and reset borders
     for (Node node : board.getChildren()) {
@@ -177,11 +169,9 @@ public class MonopolyBoardView extends Component {
     }
   }
 
-  /**
-   * Updates the background color of a property tile to match the owner's dashboard card color.
-   *
-   * @param tilePane the tile pane to update
-   */
+  /// Updates the background color of a property tile to match the owner's dashboard card color.
+  ///
+  /// @param tilePane the tile pane to update
   private void updateTileBackgroundColor(StackPane tilePane) {
     // Only apply to tiles that have Ownable userData
     if (tilePane.getUserData() instanceof Ownable ownable) {
@@ -221,11 +211,9 @@ public class MonopolyBoardView extends Component {
     }
   }
 
-  /**
-   * Removes all visual representations of the specified player from the board.
-   *
-   * @param player the player whose figures should be removed
-   */
+  /// Removes all visual representations of the specified player from the board.
+  ///
+  /// @param player the player whose figures should be removed
   private void clearPlayerFigures(Player player) {
     // Iterate through all tiles on the board
     for (Node node : board.getChildren()) {
@@ -242,13 +230,11 @@ public class MonopolyBoardView extends Component {
     }
   }
 
-  /**
-   * Gets the tile StackPane at the specified grid position.
-   *
-   * @param row the row in the grid
-   * @param col the column in the grid
-   * @return the StackPane at the specified position, or null if not found
-   */
+  /// Gets the tile StackPane at the specified grid position.
+  ///
+  /// @param row the row in the grid
+  /// @param col the column in the grid
+  /// @return the StackPane at the specified position, or null if not found
   private StackPane getTileAtPosition(int row, int col) {
     for (Node node : board.getChildren()) {
       if (node instanceof StackPane
@@ -260,12 +246,10 @@ public class MonopolyBoardView extends Component {
     return null;
   }
 
-  /**
-   * Adds a visual representation of the player to the specified tile.
-   *
-   * @param tilePane the tile where the player figure should be added
-   * @param player the player whose figure should be added
-   */
+  /// Adds a visual representation of the player to the specified tile.
+  ///
+  /// @param tilePane the tile where the player figure should be added
+  /// @param player the player whose figure should be added
   private void addPlayerFigure(StackPane tilePane, Player player) {
     String imagePath = getFigureImagePath(player.getFigure());
     ImageView playerFigure = new ImageView(imagePath);
@@ -296,12 +280,10 @@ public class MonopolyBoardView extends Component {
     tilePane.getChildren().add(playerFigure);
   }
 
-  /**
-   * Gets the image path for a player figure.
-   *
-   * @param figure the player's figure type
-   * @return the path to the corresponding image resource
-   */
+  /// Gets the image path for a player figure.
+  ///
+  /// @param figure the player's figure type
+  /// @return the path to the corresponding image resource
   private String getFigureImagePath(Player.Figure figure) {
     return switch (figure) {
       case BATTLE_SHIP -> "images/battleship.png";
@@ -349,13 +331,11 @@ public class MonopolyBoardView extends Component {
     players.get().forEach(player -> playerMoved(player, 0));
   }
 
-  /**
-   * Binds the size properties of the board to the size properties of the scene containing it.
-   *
-   * <p>This method ensures that the `board` Pane's width and height dynamically adjust to match the
-   * width and height of the scene. The binding guarantees that the board resizes automatically when
-   * the scene's size changes, maintaining a responsive layout.
-   */
+  /// Binds the size properties of the board to the size properties of the scene containing it.
+  ///
+  /// This method ensures that the `board` Pane's width and height dynamically adjust to match the
+  /// width and height of the scene. The binding guarantees that the board resizes automatically when
+  /// the scene's size changes, maintaining a responsive layout.
   public void bindSizeProperty() {
     board.prefWidthProperty().bind(this.getScene().widthProperty());
     board.prefHeightProperty().bind(this.getScene().heightProperty());
@@ -512,13 +492,11 @@ public class MonopolyBoardView extends Component {
     return tilePane;
   }
 
-  /**
-   * Updates the visual representation of property ownership by adding the owner's initial with the
-   * corresponding player color from the dashboard.
-   *
-   * @param tilePane the tile to update
-   * @param ownable the property to check for ownership
-   */
+  /// Updates the visual representation of property ownership by adding the owner's initial with the
+  /// corresponding player color from the dashboard.
+  ///
+  /// @param tilePane the tile to update
+  /// @param ownable the property to check for ownership
   private void updatePropertyOwnership(StackPane tilePane, Ownable ownable) {
     // Remove any existing owner labels
     tilePane
@@ -561,13 +539,11 @@ public class MonopolyBoardView extends Component {
     }
   }
 
-  /**
-   * Updates the visual representation of property upgrades by adding green squares for houses and
-   * red squares for hotels.
-   *
-   * @param tilePane the tile to update
-   * @param property the property to check for upgrades
-   */
+  /// Updates the visual representation of property upgrades by adding green squares for houses and
+  /// red squares for hotels.
+  ///
+  /// @param tilePane the tile to update
+  /// @param property the property to check for upgrades
   private void updatePropertyUpgrades(StackPane tilePane, Property property) {
     // Remove any existing upgrade indicators
     tilePane
@@ -624,10 +600,8 @@ public class MonopolyBoardView extends Component {
     }
   }
 
-  /**
-   * Updates all properties on the board to reflect current ownership and upgrades. Called after
-   * purchase events or when the board is refreshed.
-   */
+  /// Updates all properties on the board to reflect current ownership and upgrades. Called after
+  /// purchase events or when the board is refreshed.
   public void updateAllProperties() {
     for (Node node : board.getChildren()) {
       if (node instanceof StackPane tilePane && tilePane.getUserData() != null) {

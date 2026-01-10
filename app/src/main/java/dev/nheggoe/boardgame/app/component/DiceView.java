@@ -11,25 +11,20 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.util.Duration;
 
-/**
- * {@code DiceView} is a visual component for displaying and animating dice rolls. It dynamically
- * loads dice face images and provides an animated rolling effect before displaying the final
- * result.
- *
- * <p>This class uses JavaFX's {@link Timeline} for simple roll animation, and can be used to
- * visually represent dice outcomes in the board game. Expected dice face images should be placed
- * under the {@code /images} directory with filenames matching the pattern {@code dice1.png}, {@code
- * dice2.png}, etc.
- *
- * <p>Example usage:
- *
- * <pre>{@code
- * DiceView diceView = new DiceView();
- * diceView.animateDiceRoll(new DiceRoll(1, 2));
- * }</pre>
- *
- * @version 2025.05.16
- */
+/// `DiceView` is a visual component for displaying and animating dice rolls. It dynamically
+/// loads dice face images and provides an animated rolling effect before displaying the final
+/// result.
+///
+/// This class uses JavaFX's [Timeline] for simple roll animation, and can be used to
+/// visually represent dice outcomes in the board game. Expected dice face images should be placed
+/// under the `/images` directory with filenames matching the pattern `dice1.png`,
+/// `dice2.png`, etc.
+///
+/// Example usage:
+/// <pre>
+/// `DiceView diceView = new DiceView();diceView.animateDiceRoll(new DiceRoll(1, 2));`</pre>
+///
+/// @version 2025.05.16
 public class DiceView extends Component {
 
   private static final String BASE_PATH = "/images/dice";
@@ -40,21 +35,17 @@ public class DiceView extends Component {
 
   private final Random random = new Random();
 
-  /**
-   * Constructs a {@code DiceView} component that visually represents dice rolls and aligns its
-   * children to the center with specified spacing.
-   */
+  /// Constructs a `DiceView` component that visually represents dice rolls and aligns its
+  /// children to the center with specified spacing.
   public DiceView() {
     setAlignment(Pos.CENTER);
     setSpacing(20);
   }
 
-  /**
-   * Animates the dice roll, showing random faces during the animation, then settling on the final
-   * diceRoll provided by the {@link DiceRoll}.
-   *
-   * @param diceRoll the final dice roll diceRoll to display
-   */
+  /// Animates the dice roll, showing random faces during the animation, then settling on the final
+  /// diceRoll provided by the [DiceRoll].
+  ///
+  /// @param diceRoll the final dice roll diceRoll to display
   public void animateDiceRoll(DiceRoll diceRoll) {
     getChildren().clear();
     int diceCount = diceRoll.rolls().length;
@@ -85,7 +76,7 @@ public class DiceView extends Component {
                 }));
 
     timeline.setOnFinished(
-        event -> {
+        _ -> {
           for (int i = 0; i < diceImages.length; i++) {
             int face = diceRoll.rolls()[i];
             diceImages[i].setImage(loadFace(face));
@@ -95,12 +86,10 @@ public class DiceView extends Component {
     timeline.play();
   }
 
-  /**
-   * Loads the image corresponding to a given dice face value.
-   *
-   * @param face the face value (1–6) of the die
-   * @return the {@link Image} representing the face
-   */
+  /// Loads the image corresponding to a given dice face value.
+  ///
+  /// @param face the face value (1–6) of the die
+  /// @return the [Image] representing the face
   private Image loadFace(int face) {
     return new Image(BASE_PATH + face + ".png");
   }

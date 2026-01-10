@@ -17,24 +17,20 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
-/**
- * JavaFX view for the Snake & Ladder game. Displays the board and player icons and manages
- * interaction with the underlying game engine.
- *
- * @author Nick Heggø, Mihailo Hranisavljevic
- * @version 2025.05.21
- */
+/// JavaFX view for the Snake & Ladder game. Displays the board and player icons and manages
+/// interaction with the underlying game engine.
+///
+/// @author Nick Heggø, Mihailo Hranisavljevic
+/// @version 2025.05.21
 public class SnakeGameView extends GameView<SnakeAndLadderTile, SnakeAndLadderPlayer> {
 
-  /**
-   * Constructs the SnakeGameView with necessary suppliers and event handlers.
-   *
-   * @param sceneSwitcher handles switching between different JavaFX scenes
-   * @param eventBus the global event bus for dispatching and receiving game events
-   * @param tilesSupplier supplies the list of board tiles
-   * @param playersSupplier supplies the list of game players
-   * @param rollDiceAction the event handler for rolling the dice
-   */
+  /// Constructs the SnakeGameView with necessary suppliers and event handlers.
+  ///
+  /// @param sceneSwitcher handles switching between different JavaFX scenes
+  /// @param eventBus the global event bus for dispatching and receiving game events
+  /// @param tilesSupplier supplies the list of board tiles
+  /// @param playersSupplier supplies the list of game players
+  /// @param rollDiceAction the event handler for rolling the dice
   public SnakeGameView(
       SceneSwitcher sceneSwitcher,
       EventBus eventBus,
@@ -44,14 +40,12 @@ public class SnakeGameView extends GameView<SnakeAndLadderTile, SnakeAndLadderPl
     super(sceneSwitcher, eventBus, tilesSupplier, playersSupplier, rollDiceAction);
   }
 
-  /**
-   * Creates and returns the centre pane of the game view, containing the board and players.
-   *
-   * @param eventBus the event bus
-   * @param tiles supplier of game tiles
-   * @param playersSupplier supplier of game players
-   * @return the constructed JavaFX Pane
-   */
+  /// Creates and returns the centre pane of the game view, containing the board and players.
+  ///
+  /// @param eventBus the event bus
+  /// @param tiles supplier of game tiles
+  /// @param playersSupplier supplier of game players
+  /// @return the constructed JavaFX Pane
   @Override
   protected Pane createCenterPane(
       EventBus eventBus,
@@ -84,11 +78,9 @@ public class SnakeGameView extends GameView<SnakeAndLadderTile, SnakeAndLadderPl
     return container;
   }
 
-  /**
-   * Retrieves the player render component.
-   *
-   * @return the {@link PlayerRender} instance
-   */
+  /// Retrieves the player render component.
+  ///
+  /// @return the [PlayerRender] instance
   public PlayerRender getPlayerRender() {
     return (PlayerRender)
         getComponents().stream().filter(c -> c instanceof PlayerRender).findFirst().orElseThrow();

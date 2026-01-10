@@ -23,30 +23,26 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 
-/**
- * Controller that connects the Snake and Ladder game model to the JavaFX view.
- *
- * <p>It initialises the {@link SnakeGameView}, wires user actions to the {@link GameEngine}, and
- * triggers the end-game dialogue when appropriate.
- *
- * <p>The controller implements {@link EventListener} and orchestrates all UI components by
- * listening to events and calling component public APIs directly.
- *
- * @author Nick Heggø, Mihailo Hranisavljevic
- * @version 2025.05.21
- */
+/// Controller that connects the Snake and Ladder game model to the JavaFX view.
+///
+/// It initialises the [SnakeGameView], wires user actions to the [GameEngine], and
+/// triggers the end-game dialogue when appropriate.
+///
+/// The controller implements [EventListener] and orchestrates all UI components by
+/// listening to events and calling component public APIs directly.
+///
+/// @author Nick Heggø, Mihailo Hranisavljevic
+/// @version 2025.05.21
 public class SnakeGameController extends Controller implements EventListener {
 
   private final EventBus eventBus;
   private final SnakeGameView view;
 
-  /**
-   * Constructs a new SnakeGameController and sets up the game view.
-   *
-   * @param sceneSwitcher global scene switcher
-   * @param eventBus event bus for event publishing
-   * @param engine the core game engine
-   */
+  /// Constructs a new SnakeGameController and sets up the game view.
+  ///
+  /// @param sceneSwitcher global scene switcher
+  /// @param eventBus event bus for event publishing
+  /// @param engine the core game engine
   public SnakeGameController(
       SceneSwitcher sceneSwitcher,
       EventBus eventBus,
@@ -144,14 +140,12 @@ public class SnakeGameController extends Controller implements EventListener {
     eventBus.removeListener(UserInterfaceEvent.Alert.class, this);
   }
 
-  /**
-   * Constructs and returns the JavaFX view for the game.
-   *
-   * @param sceneSwitcher scene switcher for navigation
-   * @param eventBus event bus for communication
-   * @param engine the core game engine
-   * @return fully constructed game view
-   */
+  /// Constructs and returns the JavaFX view for the game.
+  ///
+  /// @param sceneSwitcher scene switcher for navigation
+  /// @param eventBus event bus for communication
+  /// @param engine the core game engine
+  /// @return fully constructed game view
   private static SnakeGameView createView(
       SceneSwitcher sceneSwitcher,
       EventBus eventBus,
@@ -164,13 +158,11 @@ public class SnakeGameController extends Controller implements EventListener {
         nextTurnEventHandler(sceneSwitcher, engine));
   }
 
-  /**
-   * Creates the event handler responsible for rolling the dice and checking for the game end.
-   *
-   * @param sceneSwitcher scene switcher for UI transitions
-   * @param gameEngine the game engine to invoke next turns
-   * @return JavaFX action event handler
-   */
+  /// Creates the event handler responsible for rolling the dice and checking for the game end.
+  ///
+  /// @param sceneSwitcher scene switcher for UI transitions
+  /// @param gameEngine the game engine to invoke next turns
+  /// @return JavaFX action event handler
   private static EventHandler<ActionEvent> nextTurnEventHandler(
       SceneSwitcher sceneSwitcher,
       GameEngine<SnakeAndLadderTile, SnakeAndLadderPlayer> gameEngine) {
