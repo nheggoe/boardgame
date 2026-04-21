@@ -1,0 +1,71 @@
+package build
+
+import mill.*
+import mill.javalib.*
+
+object Versions {
+  val gson = "2.13.2"
+  val javafx = "25.0.2"
+  val junit = "6.0.3"
+  val assertj = "3.27.6"
+  val mockito = "5.21.0"
+}
+
+trait BoardgameModule extends JavaModule {
+  override def jvmVersion = "25"
+}
+
+trait BoardgameTests extends TestModule.Junit6 {
+  override def jupiterVersion = Versions.junit
+
+  override def mvnDeps = super.mvnDeps() ++ Seq(
+    mvn"org.junit.jupiter:junit-jupiter-params:${Versions.junit}",
+    mvn"org.assertj:assertj-core:${Versions.assertj}",
+    mvn"org.mockito:mockito-core:${Versions.mockito}",
+    mvn"org.mockito:mockito-junit-jupiter:${Versions.mockito}"
+  )
+}
+
+object core extends BoardgameModule {
+  override def mvnDeps = Seq(
+    mvn"com.google.code.gson:gson:${Versions.gson}"
+  )
+
+  object test extends JavaTests, BoardgameTests
+}
+
+object monopoly extends BoardgameModule {
+  override def moduleDeps = Seq(core)
+
+  override def mvnDeps = Seq(
+    mvn"com.google.code.gson:gson:${Versions.gson}"
+  )
+
+  object test extends JavaTests, BoardgameTests
+}
+
+object snake extends BoardgameModule {
+  override def moduleDeps = Seq(core)
+
+  override def mvnDeps = Seq(
+    mvn"com.google.code.gson:gson:${Versions.gson}"
+  )
+
+  object test extends JavaTests, BoardgameTests
+}
+
+object app extends BoardgameModule {
+  override def moduleDeps = Seq(core, monopoly, snake)
+
+  override def mainClass = Some("dev.nheggoe.boardgame.app.Launcher")
+
+  override def mvnDeps = Seq(
+    mvn"org.openjfx:javafx-controls:${Versions.javafx}"
+  )
+
+  override def forkArgs = super.forkArgs() ++ Seq(
+    "--enable-native-access=ALL-UNNAMED"
+  )
+
+  object test extends JavaTests, BoardgameTests
+}
